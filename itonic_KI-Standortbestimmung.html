@@ -58,6 +58,7 @@ textarea,input,select{box-sizing:border-box}
 .nav .prog button.seen{background:var(--light)}
 .nav .prog button.cur{background:var(--deep)}
 .nav .prog button:hover{background:var(--mid)}
+.copy{flex:none;padding:6px 24px;background:var(--xl);border-top:1px solid var(--gl);font-size:.78rem;color:var(--gm);text-align:center}
 
 /* Titel */
 .title-slide{position:relative;min-height:100%;background:var(--deep);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:56px clamp(24px,8vw,120px)}
@@ -256,7 +257,7 @@ details.res summary{cursor:pointer;font-weight:700;color:var(--deep);padding:6px
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 #printrep{display:none}
 @media print{
-  @page{size:A4;margin:16mm}
+  @page{size:A4;margin:16mm;@bottom-center{content:"© 2026 itonic Advisors. Alle Rechte vorbehalten.";font:8pt Tahoma,Geneva,sans-serif;color:#7F7F7F}}
   html,body{background:#fff!important;height:auto!important;overflow:visible!important}
   body.pr>*:not(#printrep){display:none!important}
   body.pr #printrep{display:block;font-family:"Tahoma","Geneva",sans-serif;color:#53585F;font-size:10pt;line-height:1.4;-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -293,10 +294,10 @@ details.res summary{cursor:pointer;font-weight:700;color:var(--deep);padding:6px
 }
 /* Druck der aktuellen Folie (Strg+P oder Button „Drucken“); Bericht-Druck siehe body.pr */
 #ptabs{display:none}
-@page slide{size:A4 landscape;margin:12mm}
+@page slide{size:A4 landscape;margin:12mm 12mm 16mm;@bottom-center{content:"© 2026 itonic Advisors. Alle Rechte vorbehalten.";font:8pt Tahoma,Geneva,sans-serif;color:#7F7F7F}}
 @media print{
   body:not(.pr){-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:13px}
-  body:not(.pr) #printrep,body:not(.pr) #drawer,body:not(.pr) .nav,body:not(.pr) .top .btn,body:not(.pr) .top .count,
+  body:not(.pr) #printrep,body:not(.pr) #drawer,body:not(.pr) .nav,body:not(.pr) .copy,body:not(.pr) .top .btn,body:not(.pr) .top .count,
   body:not(.pr) #stage .btn,body:not(.pr) .title-slide .ovbtn,body:not(.pr) .title-slide .cta,body:not(.pr) .strip,
   body:not(.pr) .tabs,body:not(.pr) .savebar,body:not(.pr) .search,body:not(.pr) .mxwrap + .btn{display:none!important}
   body:not(.pr) #app{page:slide;display:block;height:auto}
@@ -337,6 +338,7 @@ details.res summary{cursor:pointer;font-weight:700;color:var(--deep);padding:6px
     <div class="prog" id="prog"></div>
     <button class="btn" id="btnNext" type="button">Weiter</button>
   </nav>
+  <footer class="copy">&copy; 2026 itonic Advisors. Alle Rechte vorbehalten.</footer>
 </div>
 <div id="drawer" role="dialog" aria-modal="true" aria-label="Übersicht">
   <div class="sheet">
