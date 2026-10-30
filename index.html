@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>itonic-Tools</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f4f8fa;
+    }
+
+    .header {
+      background: #055F7D;
+      color: white;
+      padding: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .title {
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #055F7D;
+    }
+
+    .desc {
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="header">
+  Tools
+</div>
+
+<div class="container">
+
+  <p>
+    Sammlung von itonic Tools.
+  </p>
+
+  <div class="grid">
+  <!-- TOOL 1 -->
+    <div class="card" onclick="openTool('/KI-Standortbestimmung/itonic_KI-Standortbestimmung.html')">
+      <div class="title">Informationen und Tool zuer Erfassung einer KI-Standortbestimmung</div>
+      <div class="desc">
+        Claude Token Checkliste
+      </div>
+    </div>  
+    
+  </div>
+
+</div>
+
+<script>
+function openTool(path) {
+  window.location.href = path;
+}
+</script>
+
+</body>
+</html>
