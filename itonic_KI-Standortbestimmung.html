@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>itonic KI-Standortbestimmung</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTAuMTcgMTQxLjc4Ij48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6bm9uZTt9LmNscy0ye2ZpbGw6IzA2NWQ3ZTt9LmNscy0ze2ZpbGw6IzA4NzE5MDt9LmNscy00e2ZpbGw6IzJjYjNkMjt9LmNscy01e2ZpbGw6IzEwODVhNTt9LmNscy02e2ZpbGw6IzFiOWJiYjt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPml0b25pYy1hZ2lsaXR5LWFkdmlzb3JzLXNpZ25ldC1sYW5kc2NhcGUtcmdiPC90aXRsZT48ZyBpZD0iRWJlbmVfMiIgZGF0YS1uYW1lPSJFYmVuZSAyIj48ZyBpZD0iRWJlbmVfMi0yIiBkYXRhLW5hbWU9IkViZW5lIDIiPjxyZWN0IGNsYXNzPSJjbHMtMSIgd2lkdGg9IjE5MC4xNyIgaGVpZ2h0PSIxNDEuNzgiLz48Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9Ijk3LjI0IiBjeT0iNjEuMTYiIHI9IjQuMTUiLz48Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9Ijk1LjA5IiBjeT0iNzAuODgiIHI9IjQuMTUiLz48Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjkyLjkzIiBjeT0iODAuNiIgcj0iNC4xNSIvPjxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iOTkuNCIgY3k9IjUxLjQ0IiByPSIyLjQ5Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSI4OS42OCIgY3k9IjUxLjQ0IiByPSIyLjQ5Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSIxMDkuMTEiIGN5PSI1MS40NCIgcj0iMi40OSIvPjxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iODcuNTIiIGN5PSI2MS4xNiIgcj0iMi40OSIvPjxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iODUuMzciIGN5PSI3MC44OCIgcj0iMi40OSIvPjxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iODMuMjIiIGN5PSI4MC42IiByPSIyLjQ5Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSI4MS4wNiIgY3k9IjkwLjMxIiByPSIyLjQ5Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSI5MC43OCIgY3k9IjkwLjMxIiByPSIyLjQ5Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSIxMDAuNSIgY3k9IjkwLjMxIiByPSIyLjQ5Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSIxMDIuNjUiIGN5PSI4MC42IiByPSIyLjQ5Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSIxMDQuOCIgY3k9IjcwLjg4IiByPSIyLjQ5Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSIxMDYuOTYiIGN5PSI2MS4xNiIgcj0iMi40OSIvPjxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iNjQuODQiIGN5PSIzMi4wMSIgcj0iMC44MyIvPjxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iNzQuNTUiIGN5PSIzMi4wMSIgcj0iMC44MyIvPjxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iODQuMjciIGN5PSIzMi4wMSIgcj0iMC44MyIvPjxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iOTMuOTkiIGN5PSIzMi4wMSIgcj0iMC44MyIvPjxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iMTAzLjciIGN5PSIzMi4wMSIgcj0iMC44MyIvPjxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iMTEzLjQyIiBjeT0iMzIuMDEiIHI9IjAuODMiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9IjEyMy4xNCIgY3k9IjMyLjAxIiByPSIwLjgzIi8+PGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSIxMzIuODUiIGN5PSIzMi4wMSIgcj0iMC44MyIvPjxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iMTQyLjU3IiBjeT0iMzIuMDEiIHI9IjAuODMiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9IjE0MC40MiIgY3k9IjQxLjczIiByPSIwLjgzIi8+PGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSIxMzguMjYiIGN5PSI1MS40NCIgcj0iMC44MyIvPjxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iMTM2LjExIiBjeT0iNjEuMTYiIHI9IjAuODMiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9IjEzMy45NSIgY3k9IjcwLjg4IiByPSIwLjgzIi8+PGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSIxMzEuOCIgY3k9IjgwLjYiIHI9IjAuODMiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9IjEyOS42NSIgY3k9IjkwLjMxIiByPSIwLjgzIi8+PGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSIxMjcuNDkiIGN5PSIxMDAuMDMiIHI9IjAuODMiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9IjEyNS4zNCIgY3k9IjEwOS43NSIgcj0iMC44MyIvPjxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iMTE1LjYyIiBjeT0iMTA5Ljc1IiByPSIwLjgzIi8+PGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSIxMDUuOSIgY3k9IjEwOS43NyIgcj0iMC44MyIvPjxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iOTYuMTkiIGN5PSIxMDkuNzUiIHI9IjAuODMiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9Ijg2LjQ3IiBjeT0iMTA5Ljc3IiByPSIwLjgzIi8+PGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSI3Ni43NSIgY3k9IjEwOS43NyIgcj0iMC44MyIvPjxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iNjcuMDQiIGN5PSIxMDkuNzciIHI9IjAuODMiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9IjU3LjMyIiBjeT0iMTA5Ljc3IiByPSIwLjgzIi8+PGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSI0Ny42IiBjeT0iMTA5Ljc3IiByPSIwLjgzIi8+PGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSI0OS43NiIgY3k9IjEwMC4wMyIgcj0iMC44MyIvPjxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iNTkuNDciIGN5PSIxMDAuMDMiIHI9IjAuODMiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9IjY5LjE5IiBjeT0iMTAwLjAzIiByPSIwLjgzIi8+PGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSI2MS42MyIgY3k9IjkwLjMxIiByPSIwLjgzIi8+PGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSI1MS45MSIgY3k9IjkwLjMzIiByPSIwLjgzIi8+PGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSI1NC4wNiIgY3k9IjgwLjYiIHI9IjAuODMiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9IjU2LjIyIiBjeT0iNzAuODgiIHI9IjAuODMiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9IjU4LjM3IiBjeT0iNjEuMTYiIHI9IjAuODMiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9IjYwLjUzIiBjeT0iNTEuNDQiIHI9IjAuODMiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9IjcwLjI0IiBjeT0iNTEuNDQiIHI9IjAuODMiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9IjcyLjQiIGN5PSI0MS43MyIgcj0iMC44MyIvPjxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iODIuMTIiIGN5PSI0MS43MyIgcj0iMC44MyIvPjxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iNjIuNjgiIGN5PSI0MS43MyIgcj0iMC44MyIvPjxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iMTE3Ljc3IiBjeT0iMTAwLjAzIiByPSIwLjgzIi8+PGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSIxMDguMDYiIGN5PSIxMDAuMDMiIHI9IjAuODMiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9IjExOS45MyIgY3k9IjkwLjMxIiByPSIwLjgzIi8+PGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSIxMjguNTUiIGN5PSI1MS40NCIgcj0iMC44MyIvPjxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iMTMwLjciIGN5PSI0MS43MyIgcj0iMC44MyIvPjxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iMTIwLjk4IiBjeT0iNDEuNzMiIHI9IjAuODMiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNSIgY3g9Ijc3LjgxIiBjeT0iNjEuMTYiIHI9IjEuNjYiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNSIgY3g9Ijc1LjY1IiBjeT0iNzAuODgiIHI9IjEuNjYiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNSIgY3g9IjczLjUiIGN5PSI4MC42IiByPSIxLjY2Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTUiIGN4PSIxMTIuMzciIGN5PSI4MC42IiByPSIxLjY2Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTUiIGN4PSIxMTQuNTIiIGN5PSI3MC44OCIgcj0iMS42NiIvPjxjaXJjbGUgY2xhc3M9ImNscy01IiBjeD0iMTE2LjY3IiBjeT0iNjEuMTYiIHI9IjEuNjYiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNiIgY3g9IjEwMS41NSIgY3k9IjQxLjczIiByPSIxLjY2Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTYiIGN4PSI5MS44MyIgY3k9IjQxLjczIiByPSIxLjY2Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTYiIGN4PSIxMTEuMjciIGN5PSI0MS43MyIgcj0iMS42NiIvPjxjaXJjbGUgY2xhc3M9ImNscy02IiBjeD0iNzkuOTYiIGN5PSI1MS40NCIgcj0iMS42NiIvPjxjaXJjbGUgY2xhc3M9ImNscy02IiBjeD0iNzEuMzQiIGN5PSI5MC4zMSIgcj0iMS42NiIvPjxjaXJjbGUgY2xhc3M9ImNscy02IiBjeD0iMTEwLjIxIiBjeT0iOTAuMzEiIHI9IjEuNjYiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNiIgY3g9Ijc4LjkxIiBjeT0iMTAwLjAzIiByPSIxLjY2Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTYiIGN4PSI4OC42MiIgY3k9IjEwMC4wMyIgcj0iMS42NiIvPjxjaXJjbGUgY2xhc3M9ImNscy02IiBjeD0iOTguMzQiIGN5PSIxMDAuMDMiIHI9IjEuNjYiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNiIgY3g9IjEyNi4zOSIgY3k9IjYxLjE2IiByPSIxLjI0Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTYiIGN4PSI2OC4wOSIgY3k9IjYxLjE2IiByPSIxLjI0Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTYiIGN4PSI2NS45NCIgY3k9IjcwLjg4IiByPSIxLjI0Ii8+PGNpcmNsZSBjbGFzcz0iY2xzLTYiIGN4PSI2My43OCIgY3k9IjgwLjYiIHI9IjEuMjQiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNiIgY3g9IjEyNC4yNCIgY3k9IjcwLjkiIHI9IjEuMjQiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNiIgY3g9IjEyMi4wOCIgY3k9IjgwLjYiIHI9IjEuMjQiLz48Y2lyY2xlIGNsYXNzPSJjbHMtNiIgY3g9IjExOC44MyIgY3k9IjUxLjQ0IiByPSIxLjY2Ii8+PC9nPjwvZz48L3N2Zz4=">
+<style>
+:root{
+  --deep:#055F7D; --mid:#077FA9; --light:#2DB4D2; --pale:#AAE0E8;
+  --green:#27864A; --gd:#53585F; --gm:#7F7F7F; --gl:#C4C7CB; --xl:#E8E8E8; --navy:#1A5276; --black:#1A1A1A;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  font-family:"Tahoma","Geneva",sans-serif;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;height:100%;background:#fff;color:var(--gd);font-size:17px;line-height:1.55;font-family:"Tahoma","Geneva",sans-serif;-webkit-font-smoothing:antialiased}
+em,i{font-style:normal}
+h1,h2,h3,h4{color:var(--deep);font-weight:700;line-height:1.2;margin:0}
+h1{font-size:clamp(1.7rem,3.2vw,2.35rem)}
+h2{font-size:clamp(1.3rem,2.4vw,1.7rem)}
+h3{font-size:1.08rem}
+p{margin:0 0 .8em}
+button{font-family:inherit}
+textarea,input,select{box-sizing:border-box}
+:focus-visible{outline:3px solid var(--light);outline-offset:2px}
+
+#app{display:flex;flex-direction:column;height:100%}
+.top{flex:none;height:68px;background:var(--deep);color:#fff;display:flex;align-items:center;gap:20px;padding:0 24px}
+.top img{height:64px;width:auto;display:block;margin-left:-22px}
+.top .crumb{flex:1;font-size:.95rem;color:var(--pale);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top .crumb b{color:#fff}
+.top .count{font-size:.9rem;color:#fff;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--mid);background:var(--mid);color:#fff;font-weight:700;font-size:.95rem;padding:9px 18px;border-radius:6px;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+.btn:hover{background:var(--deep);border-color:var(--deep)}
+.btn.sec{background:transparent;color:var(--mid)}
+.btn.sec:hover{background:var(--deep);color:#fff;border-color:var(--deep)}
+.btn.onDark{background:transparent;border-color:#fff;color:#fff}
+.btn.onDark:hover{background:#fff;color:var(--deep);border-color:#fff}
+.btn:disabled{opacity:.4;cursor:default;pointer-events:none}
+.btn.sm{padding:6px 12px;font-size:.85rem}
+#app[data-slide="title"] .top{display:none}
+
+#stage{flex:1;min-height:0;overflow:auto;background:#fff}
+.slide{max-width:1240px;margin:0 auto;padding:26px 32px 44px}
+.eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--mid);margin-bottom:6px}
+.lead{font-size:1.15rem;line-height:1.6}
+.sh{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.sh .grow{flex:1;min-width:240px}
+.rule{height:4px;width:72px;background:var(--light);border-radius:2px;margin:12px 0 0}
+
+.nav{flex:none;display:flex;align-items:center;gap:16px;padding:10px 24px;background:var(--xl);border-top:1px solid var(--gl)}
+.nav .prog{flex:1;display:flex;gap:5px;justify-content:center;flex-wrap:wrap}
+.nav .prog button{width:24px;height:10px;border:0;border-radius:3px;background:var(--gl);cursor:pointer;padding:0}
+.nav .prog button.seen{background:var(--light)}
+.nav .prog button.cur{background:var(--deep)}
+.nav .prog button:hover{background:var(--mid)}
+
+/* Titel */
+.title-slide{position:relative;min-height:100%;background:var(--deep);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:56px clamp(24px,8vw,120px)}
+.title-slide img{height:112px;width:auto;margin:0 0 40px -14px;align-self:flex-start}
+.title-slide h1{color:#fff;font-size:clamp(2.2rem,5.5vw,3.8rem);max-width:900px}
+.title-slide .bar{height:6px;width:120px;background:var(--light);margin:26px 0}
+.title-slide p.sub{font-size:clamp(1.1rem,2vw,1.5rem);color:#fff;max-width:760px;line-height:1.5}
+.title-slide .ovbtn{position:absolute;top:24px;right:24px}
+.title-slide .kicker{color:var(--pale);font-size:.95rem;margin:0 0 14px}
+.title-slide .kicker .sep{display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;vertical-align:middle;margin:0 .5em}
+.title-slide .meta{color:var(--pale);font-size:.95rem;margin-top:36px}
+.title-slide .cta{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
+
+/* Karten */
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{border:1px solid var(--gl);border-radius:8px;padding:20px 22px;background:#fff}
+.card h3{margin-bottom:8px}
+.card.tint{background:var(--xl);border-color:var(--xl)}
+.callout{background:var(--pale);border-left:6px solid var(--mid);border-radius:4px;padding:18px 22px}
+.callout h3{margin-bottom:6px}
+.stat{font-size:2.3rem;font-weight:700;color:var(--deep);line-height:1}
+.pill{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:999px;background:var(--pale);color:var(--deep)}
+.dimlink{background:none;border:0;padding:0;font:inherit;font-weight:700;color:var(--mid);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.dimlink:hover{color:var(--deep)}
+
+/* Modell */
+.model{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:32px;align-items:center;margin-top:12px}
+.model svg{height:clamp(320px,calc(100vh - 330px),620px);width:auto;max-width:100%;aspect-ratio:1/1;display:block;margin:0 auto}
+.seg-g{cursor:pointer;outline:none}
+.seg-g .shape{transition:fill .15s}
+.panel{border:1px solid var(--gl);border-radius:8px;padding:24px;min-height:300px;background:#fff}
+.panel .hint{color:var(--gm)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:.85rem;margin-top:14px;color:var(--gd)}
+.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.legend .l1::before{background:var(--deep)}
+.legend .l2::before{background:var(--pale)}
+.legend .l3::before{background:var(--navy)}
+
+/* Dimension */
+.dimnum{width:64px;height:64px;border-radius:12px;background:var(--deep);color:#fff;font-size:2rem;font-weight:700;display:grid;place-items:center;flex:none}
+.strip{display:flex;gap:6px}
+.strip button{width:34px;height:34px;border-radius:6px;border:1px solid var(--gl);background:#fff;color:var(--gd);font-weight:700;cursor:pointer}
+.strip button:hover{border-color:var(--mid);color:var(--mid)}
+.strip button[aria-current="true"]{background:var(--deep);border-color:var(--deep);color:#fff}
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--gl);margin:20px 0 22px;flex-wrap:wrap}
+.tab{background:none;border:0;border-bottom:3px solid transparent;margin-bottom:-2px;padding:10px 18px;font-size:1rem;font-weight:700;color:var(--gd);cursor:pointer}
+.tab:hover{color:var(--mid)}
+.tab[aria-selected="true"]{color:var(--deep);border-bottom-color:var(--light)}
+.lf{box-sizing:border-box;display:flex;gap:16px;align-items:flex-start;width:100%;text-align:left;border:1px solid var(--gl);background:#fff;border-radius:8px;padding:16px 20px;font-size:1.05rem;color:var(--gd);margin-bottom:12px}
+.lf .n{flex:none;width:36px;height:36px;border-radius:50%;background:var(--mid);color:#fff;font-weight:700;display:grid;place-items:center}
+.lf .q{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}
+.lf .tag{flex:none;margin-left:auto;align-self:flex-start;white-space:nowrap}
+.note-s{font-size:.85rem;color:var(--gm)}
+#mgrbtn{display:inline-flex;align-items:center;gap:8px}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;border-radius:10px;padding:1px 10px;background:var(--gl);color:var(--gd)}
+.mrow input[type=checkbox],.savebar input[type=checkbox]{accent-color:var(--green)}
+.mgr{margin-top:18px;padding:16px 18px;border:1px solid var(--gl);border-radius:8px;background:#fff}
+.mgr h3{margin:0 0 8px}
+.mrow{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--gl);font-size:.98rem;color:var(--gd)}
+.mrow label{flex:1 1 auto;cursor:pointer;display:flex;gap:10px;align-items:flex-start}
+.mrow input[type=checkbox]{margin-top:4px;width:18px;height:18px;flex:none}
+.mrow input[type=text]{flex:1 1 auto;min-width:0;padding:7px 10px;border:2px solid var(--gl);border-radius:6px;font:inherit;color:var(--gd)}
+.mbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+.mbar input[type=text]{flex:1 1 260px;min-width:0;padding:9px 12px;border:2px solid var(--gl);border-radius:6px;font:inherit;font-size:.95rem;color:var(--gd)}
+.mwarn{margin:10px 0 0;padding:8px 12px;border-left:4px solid var(--light);background:rgba(170,224,232,.35);font-size:.9rem}
+.mwarn.err{border-left-color:#B3261E;color:#B3261E}
+.cmp .card.lo{background:var(--xl);border-color:var(--xl)}
+.cmp .card.hi{background:rgba(170,224,232,.45);border-color:var(--pale)}
+.lvrow{display:grid;grid-template-columns:150px minmax(0,1fr) 120px;gap:18px;align-items:center;padding:14px 18px;border:1px solid var(--gl);border-radius:8px;margin-bottom:10px;background:#fff}
+.lvrow:hover{border-color:var(--mid)}
+.lvbadge{display:inline-block;padding:6px 12px;border-radius:6px;font-weight:700;font-size:.9rem;text-align:center}
+.lvrow .nm{display:block;font-size:.8rem;color:var(--gm);margin-top:4px}
+.lvbar{display:flex;gap:3px}
+.lvbar i{flex:1;height:10px;border-radius:2px;background:var(--xl)}
+.lvbar i.on{background:var(--mid)}
+
+.lv0{--lc:#E8E8E8;--lt:#53585F}
+.lv1{--lc:#AAE0E8;--lt:#1A1A1A}
+.lv2{--lc:#2DB4D2;--lt:#1A1A1A}
+.lv3{--lc:#077FA9;--lt:#FFFFFF}
+.lv4{--lc:#055F7D;--lt:#FFFFFF}
+.lvbg{background:var(--lc);color:var(--lt)}
+
+/* Skala */
+.stairs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.stairs .col{display:flex;flex-direction:column;margin-top:calc((4 - var(--i))*30px);min-width:0}
+.stairs .bar{text-align:left;border-radius:8px 8px 0 0;padding:14px 16px;min-height:96px;display:flex;flex-direction:column;justify-content:flex-end;gap:2px;overflow-wrap:anywhere}
+.stairs .bar b{font-size:1.6rem;line-height:1}
+.stairs .bar span{font-size:.95rem;font-weight:700;line-height:1.25}
+.stairs .coltext{flex:1;border:1px solid var(--gl);border-top:0;border-radius:0 0 8px 8px;padding:14px 16px;font-size:.98rem;line-height:1.5;background:#fff;overflow-wrap:anywhere}
+@media (max-width:1100px){
+  .stairs{grid-template-columns:minmax(0,1fr)}
+  .stairs .col{margin-top:0}
+  .stairs .bar{flex-direction:row;justify-content:flex-start;align-items:baseline;gap:12px;min-height:0;padding:10px 16px}
+}
+
+/* Matrix */
+.mxwrap{overflow-x:auto}
+table.mx{border-collapse:separate;border-spacing:4px;width:100%;min-width:760px;table-layout:fixed}
+.mx th.rh{width:22%}
+.mx.full th.rh{width:13%}
+.mx th{font-size:.85rem;text-align:center;color:var(--deep);padding:6px 4px}
+.mx th.rh{text-align:left}
+.mx .rowbtn{width:100%;text-align:left;background:var(--xl);border:0;border-radius:6px;padding:10px 12px;font-weight:700;color:var(--deep);font-size:.92rem;cursor:pointer}
+.mx .rowbtn:hover{background:var(--pale)}
+.mxc{width:100%;min-height:40px;border:2px solid transparent;border-radius:6px;font-weight:700;font-size:1rem;cursor:pointer;background:var(--lc);color:var(--lt)}
+.mxc:hover{border-color:var(--black)}
+.mxc[aria-pressed="true"]{border-color:var(--black);box-shadow:0 0 0 2px #fff inset}
+.mx.full .mxc{background:#fff;color:var(--gd);border:1px solid var(--gl);border-top:6px solid var(--lc);text-align:left;font-weight:400;font-size:.8rem;line-height:1.4;padding:8px 9px;vertical-align:top;min-height:0}
+.mx.full .mxc[aria-pressed="true"]{border-color:var(--black);border-top-color:var(--lc)}
+.mx.full td{vertical-align:top}
+.mxdetail{margin:6px 0 14px}
+
+/* Abgrenzung */
+.search{width:100%;max-width:420px;padding:10px 14px;border:2px solid var(--gl);border-radius:6px;font-size:1rem;color:var(--gd);background:#fff}
+.search:focus{outline:none;border-color:var(--light)}
+table.tb{width:100%;border-collapse:collapse;margin-top:14px}
+.tb th{background:var(--deep);color:#fff;text-align:left;padding:10px 14px;font-size:.9rem}
+.tb td{padding:12px 14px;vertical-align:top;border-bottom:1px solid var(--xl)}
+.tb tr:nth-child(even) td{background:#F4F4F4}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{border:0;border-radius:6px;background:var(--mid);color:#fff;font-weight:700;font-size:.85rem;padding:5px 10px;cursor:pointer}
+.tag:hover{background:var(--deep)}
+
+/* Assessment */
+.assess{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px;margin-top:16px;align-items:start}
+.aside{position:sticky;top:12px;max-height:calc(100vh - 150px);overflow:auto;padding-right:4px}
+.acard{border:1px solid var(--gl);border-radius:8px;padding:16px 18px;margin-bottom:14px;background:#fff;scroll-margin-top:12px}
+.acard.focus{border-color:var(--mid);box-shadow:0 0 0 2px var(--pale)}
+.acard h3{display:flex;gap:10px;align-items:center;margin-bottom:12px}
+.acard h3 i{flex:none;width:28px;height:28px;border-radius:6px;background:var(--deep);color:#fff;display:grid;place-items:center;font-size:.9rem}
+.acols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.acol{min-width:0}
+.acol .lbl{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gm);margin-bottom:6px}
+.lvs{display:flex;gap:4px}
+.lvs button{flex:1 1 0;min-width:0;height:38px;border:1px solid var(--mid);background:#fff;color:var(--mid);font-weight:700;font-size:1rem;border-radius:6px;cursor:pointer;padding:0}
+.lvs button:hover{background:var(--pale)}
+.acol.ist .lvs button[aria-pressed="true"]{background:var(--mid);color:#fff}
+.acol.soll .lvs button{border-color:var(--gd);color:var(--gd)}
+.acol.soll .lvs button:hover{background:var(--xl)}
+.acol.soll .lvs button[aria-pressed="true"]{background:var(--gd);color:#fff}
+.expl{margin-top:8px;padding:10px 12px;border-radius:6px;background:var(--xl);font-size:.88rem;line-height:1.45;min-height:6.6em;overflow-wrap:anywhere}
+.expl b{display:block;color:var(--deep);margin-bottom:2px}
+.expl.empty{color:var(--gm)}
+.acard details{margin-top:10px}
+.acard summary{cursor:pointer;font-weight:700;color:var(--deep);font-size:.92rem}
+.savebar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:16px 0 0;padding:14px 16px;border:1px solid var(--gl);border-radius:8px;background:#fff}
+.savebar input[type=text]{flex:1 1 240px;min-width:0;padding:9px 12px;border:2px solid var(--gl);border-radius:6px;font:inherit;font-size:.95rem;color:var(--gd);background:#fff}
+.savebar input[type=text]:focus{outline:none;border-color:var(--light)}
+.savemsg{flex:1 0 100%;font-size:.88rem;color:var(--gd);min-height:1.2em}
+.savemsg.err{color:var(--red,#C0392B);font-weight:700}
+.savemsg button{margin-left:8px}
+details.txt{flex:1 0 100%;min-width:0;max-width:100%}
+details.txt summary{cursor:pointer;font-weight:700;color:var(--deep);font-size:.92rem}
+details.txt textarea{display:block;width:100%;max-width:100%;min-height:120px;margin-top:8px;border:2px solid var(--gl);border-radius:6px;padding:10px 12px;font:inherit;font-size:.8rem;color:var(--gd);resize:vertical;background:#fff}
+.scale{font-size:.85rem;color:var(--gd);background:var(--pale);border-radius:6px;padding:8px 12px;margin-bottom:14px}
+.radar{width:100%;max-width:560px;height:auto;display:block;margin:0 auto}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:10px 0 14px}
+.kpi{border:1px solid var(--gl);border-radius:8px;padding:10px 14px}
+.kpi small{display:block;color:var(--gm);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.kpi b{font-size:1.6rem;color:var(--deep)}
+.gap{display:grid;grid-template-columns:minmax(0,1fr) 120px 36px;gap:10px;align-items:center;font-size:.92rem;margin:4px 0}
+.gap .t{height:10px;background:var(--xl);border-radius:3px;overflow:hidden}
+.gap .t i{display:block;height:100%;background:var(--deep)}
+textarea.note,textarea.res{width:100%;border:2px solid var(--gl);border-radius:6px;padding:10px 12px;font:inherit;font-size:.95rem;color:var(--gd);resize:vertical;background:#fff}
+textarea.note:focus,textarea.res:focus{outline:none;border-color:var(--light)}
+textarea.res{font-size:.8rem;min-height:170px}
+.leg{display:flex;gap:16px;font-size:.82rem;margin-top:6px;justify-content:center}
+.leg span::before{content:"";display:inline-block;width:22px;height:0;border-top:3px solid var(--mid);margin-right:6px;vertical-align:4px}
+.leg .s::before{border-top:3px dashed var(--gd)}
+details.res summary{cursor:pointer;font-weight:700;color:var(--deep);padding:6px 0}
+
+/* Übersicht */
+#drawer{position:fixed;inset:0;background:rgba(26,26,26,.6);display:none;z-index:50;padding:24px;overflow:auto}
+#drawer.open{display:block}
+#drawer .sheet{max-width:1100px;margin:0 auto;background:#fff;border-radius:10px;padding:24px 28px 30px}
+#drawer .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:8px 0 18px}
+#drawer .tile{text-align:left;border:1px solid var(--gl);background:#fff;border-radius:8px;padding:12px 14px;cursor:pointer;color:var(--gd);font-size:.95rem}
+#drawer .tile:hover{border-color:var(--mid)}
+#drawer .tile.cur{background:var(--deep);border-color:var(--deep);color:#fff}
+#drawer .tile b{display:block;font-size:.75rem;color:var(--mid);margin-bottom:2px}
+#drawer .tile.cur b{color:var(--pale)}
+
+@media (max-width:900px){
+  .g2,.g3,.model,.assess{grid-template-columns:minmax(0,1fr)}
+  .lvrow{grid-template-columns:minmax(0,1fr)}
+  .slide{padding:20px 18px 36px}
+  .top{padding:0 14px}
+  .nav .prog{display:none}
+  .nav{justify-content:space-between}
+  .acols{grid-template-columns:minmax(0,1fr)}
+  .aside{position:static;max-height:none;overflow:visible}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+#printrep{display:none}
+@media print{
+  @page{size:A4;margin:16mm}
+  html,body{background:#fff!important;height:auto!important;overflow:visible!important}
+  body.pr>*:not(#printrep){display:none!important}
+  body.pr #printrep{display:block;font-family:"Tahoma","Geneva",sans-serif;color:#53585F;font-size:10pt;line-height:1.4;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #printrep *{font-style:normal}
+  #printrep .pr-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:8pt;border-bottom:3pt solid #2DB4D2}
+  #printrep .pr-head img{height:50pt;width:auto;margin-left:-24pt}
+  #printrep .pr-date{font-size:9pt;color:#7F7F7F}
+  #printrep h1{font-size:19pt;color:#055F7D;margin:14pt 0 2pt;font-weight:700}
+  #printrep h2{font-size:12pt;color:#055F7D;margin:10pt 0 6pt;font-weight:700;break-after:avoid}
+  #printrep .pr-name{font-size:11pt;margin:0 0 10pt}
+  #printrep .pr-kpis{display:flex;gap:8pt;margin:8pt 0}
+  #printrep .pr-kpi{flex:1;border:1pt solid #C4C7CB;border-top:3pt solid #077FA9;padding:6pt 8pt;break-inside:avoid}
+  #printrep .pr-kpi small{display:block;font-size:8pt;color:#7F7F7F}
+  #printrep .pr-kpi b{font-size:15pt;color:#055F7D}
+  #printrep .pr-radar{text-align:center;break-inside:avoid}
+  #printrep .pr-radar svg{width:100%;max-width:88mm;height:auto}
+  #printrep .pr-leg{text-align:center;font-size:9pt;margin-top:2pt}
+  #printrep table{width:100%;border-collapse:collapse;font-size:9pt}
+  #printrep th{background:#055F7D;color:#fff;text-align:left;padding:5pt 6pt}
+  #printrep td{padding:5pt 6pt;border-bottom:1pt solid #C4C7CB;vertical-align:top}
+  #printrep tr:nth-child(even) td{background:#AAE0E8}
+  #printrep tr{break-inside:avoid}
+  #printrep .c{text-align:center;width:34pt}
+  #printrep .pr-gap{display:flex;align-items:center;gap:8pt;margin:3pt 0;break-inside:avoid}
+  #printrep .pr-gap span:first-child{flex:0 0 150pt}
+  #printrep .pr-bar{flex:1;height:7pt;background:#E8E8E8}
+  #printrep .pr-bar i{display:block;height:100%;background:#077FA9}
+  #printrep .pr-note{font-size:8.5pt;color:#7F7F7F;margin:6pt 0 0}
+  #printrep .pr-foot{margin-top:8pt;padding-top:6pt;border-top:1pt solid #C4C7CB;font-size:8pt;color:#7F7F7F}
+  #printrep .pr-annex{break-before:page;page-break-before:always}
+  #printrep .pr-annex h3{font-size:10.5pt;color:#055F7D;margin:9pt 0 3pt;break-after:avoid}
+  #printrep .pr-annex ul{margin:0;padding-left:14pt}
+  #printrep .pr-annex li{font-size:9pt;margin:0 0 3pt;break-inside:avoid}
+}
+/* Druck der aktuellen Folie (Strg+P oder Button „Drucken“); Bericht-Druck siehe body.pr */
+#ptabs{display:none}
+@page slide{size:A4 landscape;margin:12mm}
+@media print{
+  body:not(.pr){-webkit-print-color-adjust:exact;print-color-adjust:exact;font-size:13px}
+  body:not(.pr) #printrep,body:not(.pr) #drawer,body:not(.pr) .nav,body:not(.pr) .top .btn,body:not(.pr) .top .count,
+  body:not(.pr) #stage .btn,body:not(.pr) .title-slide .ovbtn,body:not(.pr) .title-slide .cta,body:not(.pr) .strip,
+  body:not(.pr) .tabs,body:not(.pr) .savebar,body:not(.pr) .search,body:not(.pr) .mxwrap + .btn{display:none!important}
+  body:not(.pr) #app{page:slide;display:block;height:auto}
+  body:not(.pr) .top{height:auto;padding:4px 16px}
+  body:not(.pr) .top img{height:44px;margin-left:-14px}
+  body:not(.pr) #stage{overflow:visible;height:auto;flex:none}
+  body:not(.pr) .slide{max-width:none;padding:14px 0 0}
+  body:not(.pr) .title-slide{min-height:160mm;padding:40px 60px}
+  .dimlink{text-decoration:none;color:inherit}
+  .card,.callout,.lvrow,.acard,.lf,.kpi,.stairs .col,.mx tr,.tb tr{break-inside:avoid}
+  .model svg{height:110mm;width:auto}
+  .mxwrap{overflow:visible}
+  .aside{position:static;max-height:none;overflow:visible}
+  .stairs{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .stairs .col{margin-top:calc((4 - var(--i))*20px)}
+  .stairs .bar{flex-direction:column;justify-content:flex-end;align-items:stretch;gap:2px;min-height:80px;padding:12px 14px}
+  /* Dimensionsfolien: alle drei Reiter nacheinander */
+  body.ps-dim .tabs,body.ps-dim #tp{display:none!important}
+  body.ps-dim #ptabs{display:block}
+  #ptabs h2.pt{margin:18px 0 10px;padding-bottom:4px;border-bottom:3px solid var(--light);break-after:avoid}
+  #ptabs h2.pt:not(:first-child){break-before:page}
+  #ptabs #mgrbtn,#ptabs .mgr,#ptabs .note-s.grow{display:none!important}
+}
+</style>
+</head>
+<body>
+<div id="app" data-slide="title">
+  <header class="top">
+    <img alt="itonic advisors" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDQyOS42IDE0MS44Ij4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiBub25lOwogICAgICB9CgogICAgICAuY2xzLTIgewogICAgICAgIGZpbGw6ICNmZmY7CiAgICAgIH0KCiAgICAgIC5jbHMtMyB7CiAgICAgICAgb3BhY2l0eTogLjg7CiAgICAgIH0KCiAgICAgIC5jbHMtNCB7CiAgICAgICAgb3BhY2l0eTogLjQ7CiAgICAgIH0KCiAgICAgIC5jbHMtNSB7CiAgICAgICAgb3BhY2l0eTogLjY7CiAgICAgIH0KCiAgICAgIC5jbHMtNiB7CiAgICAgICAgb3BhY2l0eTogLjI7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgPC9kZWZzPgogIDwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyOC42LjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiAxLjIuMCBCdWlsZCA3MDkpICAtLT4KICA8Zz4KICAgIDxnIGlkPSJFYmVuZV8xIj4KICAgICAgPGcgaWQ9IkViZW5lXzIiPgogICAgICAgIDxnIGlkPSJFYmVuZV8yLTIiPgogICAgICAgICAgPHJlY3QgY2xhc3M9ImNscy0xIiB5PSIwIiB3aWR0aD0iNDI5LjYiIGhlaWdodD0iMTQxLjgiLz4KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTE2NC4yLDg2LjhsOS4yLTQxLjNoMTMuMmwtOS4yLDQxLjNoLTEzLjJaIi8+CiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yMTkuOCw2OC44YzAtMTMuNCwxMC43LTI0LjMsMjQuMS0yNC40LDAsMCwuMSwwLC4yLDAsMTQsMCwyMS4zLDguMywyMS4zLDE5LjEsMCwxMy4zLTEwLjcsMjQuMi0yNCwyNC4zLDAsMC0uMiwwLS4zLDAtMTMuOSwwLTIxLjMtOC4zLTIxLjMtMTlaTTI1Miw2NC4xYzAtNS0zLjItOC04LjMtOHMtMTAuNCw1LjgtMTAuNCwxMi4xLDMuMiw4LDguMyw4YzYuMiwwLDEwLjQtNS44LDEwLjQtMTIuMVoiLz4KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTI5NSw4Ni44bDUuMS0yMy4yYy4yLTEsLjQtMiwuNC0zLDAtMy4yLTIuNy00LjUtNS42LTQuNS0zLjQuMS02LjUsMS41LTguOCw0bC01LjksMjYuN2gtMTMuMWw5LjEtNDEuM2gxMy4ybC0xLjIsNWMzLjItMi45LDcuMy02LjEsMTMuNC02LjFzMTMuMyw0LjUsMTMuMywxMC43YzAsMS4xLS4yLDIuMy0uNCwzLjRsLTYuMiwyOC4zaC0xMy4yWiIvPgogICAgICAgICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMzE2LjQsODYuOGw5LjItNDEuM2gxMy4ybC05LjEsNDEuM2gtMTMuMloiLz4KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTM0MC44LDY4LjhjLS4xLTEzLjQsMTAuNi0yNC4zLDI0LTI0LjQuMiwwLC4zLDAsLjUsMCw5LDAsMTQuNywzLjcsMTcuNSw4LjRsLTkuOCw3LjRjLTEuNy0yLjctNC42LTQuMy03LjgtNC4yLTYuNSwwLTExLDUuMy0xMSwxMnM0LDguMSw5LDguMWMzLDAsNS44LTEuNCw3LjgtMy43bDcuMSw4LjZjLTQuMiw0LjQtMTAuMSw2LjgtMTYuMiw2LjctMTMsMC0yMS4xLTcuOS0yMS4xLTE5WiIvPgogICAgICAgICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMjEyLjYsNzUuNWMtLjguNC0xLjcuNy0yLjYuNy0yLjcsMC0zLjktMS40LTMuOS0zLjQsMC0uNi4xLTEuMy4zLTEuOWwzLjEtMTRoOC40bDIuNi0xMS40aC0yOC40bC0yLjYsMTEuNGg2LjhsLTQsMTguMmMtLjEsMS0uMiwyLS4zLDMsMCw2LjcsNS42LDkuOCwxMy43LDkuOCwxLjQsMCwyLjktLjIsNC4zLS41bDIuNy0xMS44WiIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIyMDcuOSIgY3k9IjM0LjIiIHI9IjcuOCIvPgogICAgICAgICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMjczLjQsMTEwLjR2LTEuNGgtNC42bC0uOCwxLjRoLTQuNGw3LjMtMTIuNGg0LjdsMS44LDEyLjNoLTRaTTI3Mi42LDEwMS43bC0yLjEsNGgyLjVsLS40LTRaIi8+CiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yODAuOSwxMTAuNGwyLjctMTIuNGg1LjRjMywwLDUuNSwyLjMsNS42LDUuMywwLDAsMCwwLDAsMCwwLDMuMS0yLDctOC4yLDdoLTUuNVpNMjg3LDEwNy4xYzEuOS4xLDMuNS0xLjMsMy43LTMuMiwwLS4xLDAtLjIsMC0uMywwLTEuMy0xLTIuMy0yLjItMi40LDAsMC0uMSwwLS4yLDBoLTEuN2wtMS4zLDUuOGgxLjdaIi8+CiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yOTkuOCwxMTAuNGwtMS44LTEyLjRoNC4xbC44LDguMyw0LjUtOC4zaDQuNGwtNy4zLDEyLjNoLTQuN1oiLz4KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMxMi41LDExMC40bDIuNy0xMi40aDMuOGwtMi43LDEyLjNoLTMuN1oiLz4KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMyMC43LDEwOC4ybDIuMi0yLjdjMS4xLDEuMiwyLjYsMS45LDQuMywxLjkuNywwLDEtLjMsMS0uNSwwLTEtNS45LTEtNS45LTQuNnMxLjgtNC40LDUuMy00LjRjMiwwLDMuOS43LDUuNCwyLjFsLTIuMiwyLjZjLTEtLjktMi40LTEuNS0zLjgtMS41LS41LDAtLjguMi0uOC41LDAsMSw1LjksMSw1LjksNC42cy0yLDQuNS01LjIsNC41Yy0yLjMuMS00LjYtLjgtNi4yLTIuNFoiLz4KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMzNS42LDEwNC45YzAtMy45LDMuMi03LjEsNy4yLTcuMSwwLDAsLjIsMCwuMywwLDMuNywwLDYuNCwyLjMsNi40LDUuNiwwLDQtMy4yLDcuMi03LjIsNy4yLDAsMC0uMiwwLS4yLDAtMy43LDAtNi40LTIuMy02LjQtNS43Wk0zNDUuNiwxMDMuN2MwLTEuNC0xLjEtMi42LTIuNS0yLjYsMCwwLS4yLDAtLjIsMC0xLjksMC0zLjQsMS42LTMuMywzLjUsMCwwLDAsMCwwLDAsMCwxLjQsMS4xLDIuNiwyLjUsMi42LDAsMCwuMiwwLC4yLDAsMS45LDAsMy40LTEuNiwzLjMtMy41LDAsMCwwLDAsMCwwaDBaIi8+CiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0zNTkuMSwxMTAuNGwtLjktMy45aC0xLjVsLS45LDMuOWgtMy43bDIuNy0xMi40aDZjMi4xLS4yLDQsMS40LDQuMSwzLjYsMCwwLDAsLjEsMCwuMiwwLDItMS4yLDMuNy0zLDQuNGwxLjIsNC4yaC00LjFaTTM1OS43LDEwMy4yYy44LDAsMS40LS4zLDEuNC0xLDAtLjUtLjUtLjktMS0uOWgtMi4ybC0uNCwxLjloMi4zLDBaIi8+CiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0zNjcuMSwxMDguMmwyLjItMi43YzEuMSwxLjIsMi42LDEuOSw0LjMsMS45LjcsMCwxLS4zLDEtLjUsMC0xLTUuOS0xLTUuOS00LjZzMS44LTQuNCw1LjMtNC40YzIsMCwzLjkuNyw1LjQsMi4xbC0yLjIsMi42Yy0xLS45LTIuNC0xLjUtMy44LTEuNS0uNSwwLS44LjItLjguNSwwLDEsNS45LDEsNS45LDQuNnMtMiw0LjUtNS4yLDQuNWMtMi4zLjEtNC42LS44LTYuMi0yLjRaIi8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9Ijk3LjIiIGN5PSI2MS4yIiByPSI0LjIiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iOTUuMSIgY3k9IjcwLjkiIHI9IjQuMiIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI5Mi45IiBjeT0iODAuNiIgcj0iNC4yIi8+CiAgICAgICAgICA8ZyBjbGFzcz0iY2xzLTMiPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9Ijk5LjQiIGN5PSI1MS40IiByPSIyLjUiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI4OS43IiBjeT0iNTEuNCIgcj0iMi41Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTA5LjEiIGN5PSI1MS40IiByPSIyLjUiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI4Ny41IiBjeT0iNjEuMiIgcj0iMi41Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iODUuNCIgY3k9IjcwLjkiIHI9IjIuNSIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjgzLjIiIGN5PSI4MC42IiByPSIyLjUiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI4MS4xIiBjeT0iOTAuMyIgcj0iMi41Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iOTAuOCIgY3k9IjkwLjMiIHI9IjIuNSIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEwMC41IiBjeT0iOTAuMyIgcj0iMi41Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTAyLjciIGN5PSI4MC42IiByPSIyLjUiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMDQuOCIgY3k9IjcwLjkiIHI9IjIuNSIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEwNyIgY3k9IjYxLjIiIHI9IjIuNSIvPgogICAgICAgICAgPC9nPgogICAgICAgICAgPGcgY2xhc3M9ImNscy02Ij4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI2NC44IiBjeT0iMzIiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNzQuNiIgY3k9IjMyIiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9Ijg0LjMiIGN5PSIzMiIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI5NCIgY3k9IjMyIiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEwMy43IiBjeT0iMzIiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTEzLjQiIGN5PSIzMiIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMjMuMSIgY3k9IjMyIiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEzMi45IiBjeT0iMzIiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTQyLjYiIGN5PSIzMiIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxNDAuNCIgY3k9IjQxLjciIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTM4LjMiIGN5PSI1MS40IiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEzNi4xIiBjeT0iNjEuMiIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMzMuOSIgY3k9IjcwLjkiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTMxLjgiIGN5PSI4MC42IiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEyOS42IiBjeT0iOTAuMyIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMjcuNSIgY3k9IjEwMCIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMjUuMyIgY3k9IjEwOS44IiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjExNS42IiBjeT0iMTA5LjgiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTA1LjkiIGN5PSIxMDkuOCIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI5Ni4yIiBjeT0iMTA5LjgiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iODYuNSIgY3k9IjEwOS44IiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9Ijc2LjgiIGN5PSIxMDkuOCIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI2NyIgY3k9IjEwOS44IiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjU3LjMiIGN5PSIxMDkuOCIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI0Ny42IiBjeT0iMTA5LjgiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNDkuOCIgY3k9IjEwMCIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI1OS41IiBjeT0iMTAwIiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjY5LjIiIGN5PSIxMDAiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNjEuNiIgY3k9IjkwLjMiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNTEuOSIgY3k9IjkwLjMiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNTQuMSIgY3k9IjgwLjYiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNTYuMiIgY3k9IjcwLjkiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNTguNCIgY3k9IjYxLjIiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNjAuNSIgY3k9IjUxLjQiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNzAuMiIgY3k9IjUxLjQiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNzIuNCIgY3k9IjQxLjciIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iODIuMSIgY3k9IjQxLjciIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNjIuNyIgY3k9IjQxLjciIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTE3LjgiIGN5PSIxMDAiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTA4LjEiIGN5PSIxMDAiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTE5LjkiIGN5PSI5MC4zIiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEyOC42IiBjeT0iNTEuNCIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMzAuNyIgY3k9IjQxLjciIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTIxIiBjeT0iNDEuNyIgcj0iLjgiLz4KICAgICAgICAgIDwvZz4KICAgICAgICAgIDxnIGNsYXNzPSJjbHMtNSI+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNzcuOCIgY3k9IjYxLjIiIHI9IjEuNyIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9Ijc1LjciIGN5PSI3MC45IiByPSIxLjciLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI3My41IiBjeT0iODAuNiIgcj0iMS43Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTEyLjQiIGN5PSI4MC42IiByPSIxLjciLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMTQuNSIgY3k9IjcwLjkiIHI9IjEuNyIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjExNi43IiBjeT0iNjEuMiIgcj0iMS43Ii8+CiAgICAgICAgICA8L2c+CiAgICAgICAgICA8ZyBjbGFzcz0iY2xzLTQiPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEwMS42IiBjeT0iNDEuNyIgcj0iMS43Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iOTEuOCIgY3k9IjQxLjciIHI9IjEuNyIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjExMS4zIiBjeT0iNDEuNyIgcj0iMS43Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iODAiIGN5PSI1MS40IiByPSIxLjciLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI3MS4zIiBjeT0iOTAuMyIgcj0iMS43Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTEwLjIiIGN5PSI5MC4zIiByPSIxLjciLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI3OC45IiBjeT0iMTAwIiByPSIxLjciLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI4OC42IiBjeT0iMTAwIiByPSIxLjciLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI5OC4zIiBjeT0iMTAwIiByPSIxLjciLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMjYuNCIgY3k9IjYxLjIiIHI9IjEuMiIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjY4LjEiIGN5PSI2MS4yIiByPSIxLjIiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI2NS45IiBjeT0iNzAuOSIgcj0iMS4yIi8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNjMuOCIgY3k9IjgwLjYiIHI9IjEuMiIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEyNC4yIiBjeT0iNzAuOSIgcj0iMS4yIi8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTIyLjEiIGN5PSI4MC42IiByPSIxLjIiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMTguOCIgY3k9IjUxLjQiIHI9IjEuNyIvPgogICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgICAgPC9nPgogICAgPC9nPgogIDwvZz4KPC9zdmc+">
+    <div class="crumb" id="crumb"></div>
+    <span class="count" id="count"></span>
+    <button class="btn onDark sm" id="btnPrint" type="button" title="Aktuelle Seite drucken (Strg+P)">Drucken</button>
+    <button class="btn onDark sm" id="btnOv" type="button">Übersicht</button>
+  </header>
+  <main id="stage" tabindex="-1"></main>
+  <nav class="nav" aria-label="Navigation">
+    <button class="btn sec" id="btnPrev" type="button">Zurück</button>
+    <div class="prog" id="prog"></div>
+    <button class="btn" id="btnNext" type="button">Weiter</button>
+  </nav>
+</div>
+<div id="drawer" role="dialog" aria-modal="true" aria-label="Übersicht">
+  <div class="sheet">
+    <div class="sh" style="margin-bottom:8px"><h2 class="grow">Übersicht</h2><button class="btn sec sm" id="btnClose" type="button">Schließen</button></div>
+    <div id="tiles"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------- Hilfsfunktionen ---------- */
+var $ = function(s,r){return (r||document).querySelector(s);};
+var $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s));};
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function link(s){return esc(s).replace(/Dimension (\d)/g,function(m,n){return '<button type="button" class="dimlink" data-d="'+n+'">Dimension '+n+'</button>';});}
+function de(n){return n.toFixed(1).replace('.',',');}
+var store={
+  get:function(k){try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}},
+  set:function(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+};
+
+/* ---------- Inhalte (Quelle: itonic Offering – KI Betrachtungsdimensionen, Stand 11.09.2026) ---------- */
+var LEVELS=['nicht vorhanden','initial','definiert','etabliert','skaliert/optimiert'];
+var GENERIC=[
+ 'Keine Aktivitäten, kein Bewusstsein.',
+ 'Erste, punktuelle Ansätze, meist personengetrieben und ohne Standard.',
+ 'Dokumentierte Vorgehen und Verantwortlichkeiten, jedoch noch nicht durchgängig gelebt.',
+ 'Durchgängig angewandt, gesteuert und mit Kennzahlen unterlegt.',
+ 'Bereichsübergreifend verankert, kontinuierlich verbessert und in den Regelbetrieb überführt.'
+];
+var DIMS=[
+{id:1,name:'Culture & Leadership',lines:['Culture &','Leadership'],role:'Rahmen',
+ bedeutung:'Die Etablierung von KI ist primär eine Führungs- und Kulturaufgabe. Diese Dimension bewertet das sichtbare Commitment der Führung, den Umgang mit Veränderung, die Offenheit für datenbasierte Entscheidungen sowie Experimentierfreude bei gleichzeitig verantwortungsvollem Umgang. Kultur und Leadership entscheiden darüber, ob KI im Unternehmen tatsächlich ankommt und Wirkung entfaltet — sie umschließen alle anderen Dimensionen.',
+ abgrenzung:'Diese Dimension erfasst Haltung und Commitment. Die messbare Kompetenz/Qualifizierung ist Gegenstand von Dimension 5.',
+ leit:['In welchem Ausmaß fördert die Führung das Thema KI sichtbar und aktiv (Vorbildwirkung, Priorisierung, bereitgestellte Ressourcen)?','Wie stark ist die Kultur des Experimentierens, des Lernens und datenbasierte Entscheidungen etabliert?','Wie wird der Wandel begleitet (Change Management, Umgang mit Ängsten und Widerständen)?'],
+ sichtbar:'Sichtbar wird diese Dimension z. B. daran, ob Führungskräfte KI selbst aktiv nutzen und darüber sprechen, ob ein gescheitertes KI-Experiment als Lernchance oder als Fehler gilt, und ob Mitarbeitende eigene Ideen für KI-Einsatz einbringen dürfen.',
+ niedrig:'Eine niedrige Reife zeigt sich oft in vereinzelten Initiativen ohne sichtbaren Rückhalt „von oben“ und in unausgesprochenen Sorgen (Jobängste, Vertrauen in KI-Ergebnisse).',
+ hoch:'Eine hohe Reife zeigt sich in aktiv vorgelebter, offen kommunizierter Nutzung und einer etablierten Fehlerkultur beim Experimentieren.',
+ stufen:['Kein Bewusstsein für KI bei der Führung, Thema wird nicht angesprochen, keine Aktivitäten erkennbar.','Einzelne Personen experimentieren auf eigene Initiative mit KI, ohne sichtbaren Rückhalt „von oben“; Ängste und Vorbehalte bleiben unausgesprochen.','Führung bekennt sich sichtbar zum Thema (Kommunikation, Zielsetzung), erste Change-Management-Maßnahmen sind geplant, jedoch noch nicht durchgängig gelebt.','Führung lebt KI-Nutzung aktiv vor, eine Kultur des Experimentierens und Lernens aus Fehlern ist etabliert, der Wandel wird systematisch begleitet.','Offene, datenbasierte und experimentierfreudige Kultur ist bereichsübergreifend verankert und wird kontinuierlich reflektiert und weiterentwickelt.']},
+{id:2,name:'Strategie & Business Value',lines:['Strategie &','Business Value'],role:'Kerndimension',
+ bedeutung:'Diese Dimension klärt, ob KI-Strategie und KI-Initiativen an den Geschäftszielen ausgerichtet sind und einen messbaren Wertbeitrag (Wirkung) leisten. Sie stellt sicher, dass Priorisierung nach erwarteter Wirkung statt nach technologischer Machbarkeit erfolgt, und verankert KI als Bestandteil der Unternehmensstrategie und der Investitionslogik.',
+ abgrenzung:'Diese Dimension erfasst Auswahl und Priorisierung von Use Cases nach definierten Parametern. Umsetzungsreife und Produktiveinsatz sind Gegenstand von Dimension 6.',
+ leit:['Gibt es eine schriftliche und kommunizierte KI-Strategie? Wie stark sind KI-Strategie und Unternehmensstrategie, Geschäftsbereichsstrategien, Funktionsstrategien miteinander verzahnt?','Sind KI-Vorhaben explizit mit Geschäftszielen und messbaren Erfolgskriterien verknüpft (oder werden sie technologiegetrieben priorisiert)?','Existiert ein nach Wertbeitrag priorisiertes KI-Portfolio von Use Cases?'],
+ sichtbar:'Sichtbar wird diese Dimension z. B. daran, ob es für KI-Vorhaben einen schriftlichen Business Case mit erwarteter Wirkung gibt und ob nach diesem Nutzen priorisiert wird – statt nach dem Motto „weil die Technologie es gerade zulässt“.',
+ niedrig:'Eine niedrige Reife zeigt sich in einer unkoordinierten Sammlung von Einzel-Use-Cases ohne Verknüpfung zu Geschäftszielen.',
+ hoch:'Eine hohe Reife zeigt sich in einem aktiv gesteuerten, nach Wertbeitrag priorisierten Portfolio, das regelmäßig mit der Unternehmensstrategie abgeglichen wird.',
+ stufen:['Keine KI-Strategie, keine Verknüpfung von Aktivitäten zu Geschäftszielen, rein zufällige bzw. technologiegetriebene Vorhaben.','Erste KI-Initiativen entstehen punktuell, meist ohne schriftliche Strategie oder klare Erfolgskriterien.','Eine KI-Strategie ist dokumentiert und mit Geschäftszielen verknüpft, Priorisierungskriterien sind definiert, das Portfolio wird aber noch nicht konsequent danach gesteuert.','KI-Strategie ist mit Unternehmens- und Funktionsstrategien verzahnt, ein nach Wertbeitrag priorisiertes Portfolio wird aktiv gesteuert und mit Kennzahlen unterlegt.','KI ist fester, kontinuierlich weiterentwickelter Bestandteil der Unternehmensstrategie und Investitionslogik, der Wertbeitrag wird bereichsübergreifend gemessen und optimiert.']},
+{id:3,name:'Governance & Compliance',lines:['Governance &','Compliance'],role:'Kerndimension',
+ bedeutung:'Diese Dimension stellt sicher, dass KI regelkonform, nachvollziehbar und verantwortungsvoll eingesetzt wird. Sie umfasst rechtliche Anforderungen (u. a. EU AI Act), Risikoklassifizierung, klare Entscheidungs- und Kontrollrechte für KI-Entscheidungen sowie Kontroll- und Freigabemechanismen. Governance ist Voraussetzung für skalierbaren KI-Einsatz — besonders in regulierten Umfeldern.',
+ abgrenzung:'Diese Dimension erfasst Regeln, Rechte und Kontrolle (das „Dürfen“, inkl. regulatorischer Anforderungen an den Datenumgang). Die organisatorische Verankerung der Fähigkeit regelt Dimension 4, die operative Data Governance (Ownership, Qualität, Zugriff) regelt Dimension 8.',
+ leit:['Sind die Verantwortungen zu KI-Themen geregelt? Wie sind Verantwortlichkeiten im Zusammenhang mit KI-Themen geregelt?','Wie sind Entscheidungs-, Freigabeprozesse und Risikoklassifizierungen für KI-Anwendungen definiert (u. a. mit Blick auf den EU AI Act)?','Sind Leitplanken (Guardrails) für zulässige Nutzung, Umgang mit Daten und mit KI-Ergebnissen definiert (z. B. KI-Leitfaden)?','Wie werden KI-Systeme auf Nachvollziehbarkeit, Verzerrungen (Bias) und Regelkonformität überprüft?'],
+ sichtbar:'Sichtbar wird diese Dimension z. B. daran, ob es einen verbindlichen KI-Leitfaden gibt, ob KI-Anwendungen vor dem produktiven Einsatz nach Risiko eingestuft werden (u. a. nach EU AI Act), und ob klar ist, wer eine KI-Anwendung freigeben darf.',
+ niedrig:'Eine niedrige Reife zeigt sich in Ad-hoc-Entscheidungen ohne dokumentierte Regeln.',
+ hoch:'Eine hohe Reife zeigt sich in einem etablierten Freigabeprozess mit Risikoklassifizierung, klaren Verantwortlichkeiten und regelmäßiger Überprüfung auf Nachvollziehbarkeit und Bias.',
+ stufen:['Keine Regeln, keine Risikobetrachtung, KI wird ungeprüft eingesetzt.','Einzelne, informelle Absprachen zu Leitplanken, kein dokumentierter Freigabeprozess, Risikoklassifizierung fehlt.','Ein KI-Leitfaden sowie Freigabe- und Risikoklassifizierungsprozesse (u. a. mit Blick auf den EU AI Act) sind dokumentiert, werden aber noch nicht durchgängig angewendet.','Freigabeprozesse, Risikoklassifizierung und Guardrails werden durchgängig angewendet und anhand von Kennzahlen (z. B. Audit-Ergebnissen) gesteuert.','Governance-Mechanismen sind bereichsübergreifend verankert, werden kontinuierlich an neue regulatorische Anforderungen angepasst und sind fester Teil des Regelbetriebs.']},
+{id:4,name:'Organisation & Operating Model',lines:['Organisation &','Operating Model'],role:'Kerndimension',
+ bedeutung:'Diese Dimension klärt, wie KI-Fähigkeiten organisatorisch verankert sind — zentral, dezentral oder hybrid (z. B. Center of Excellence). Sie umfasst die Zusammenarbeitsmodelle zwischen Fachbereich, IT und externen Partnern, das Betriebsmodell für KI-Lösungen sowie die Fähigkeit, über Einzelinitiativen hinaus zu skalieren.',
+ abgrenzung:'Diese Dimension erfasst Struktur und Zusammenarbeit (das „Wo/Wie organisiert“). Die Entscheidungs- und Kontrollrechte regelt Dimension 3, die konkrete Personen- und Kompetenzbesetzung Dimension 5. Skalierung wird hier aus organisatorischer Sicht betrachtet.',
+ leit:['Sind KI-Verantwortung und -Kompetenz organisatorisch klar verankert (zentral / dezentral / CoE)?','Ist die Betriebsverantwortung für KI-Tools und KI-Lösungen definiert (z. B. Übergang in Regelbetrieb/laufende Wartung, Zusammenspiel innerhalb der Organisation mit externen Partnern)?','Können erfolgreiche Piloten über Bereiche hinweg skaliert werden? Welcher Mechanismus existiert, ihn auf andere Bereiche zu übertragen?'],
+ sichtbar:'Sichtbar wird diese Dimension z. B. daran, ob es eine klar benannte Stelle oder ein Team mit KI-Verantwortung gibt (zentral, dezentral oder als Center of Excellence), und ob ein erfolgreicher Pilot in einem Bereich tatsächlich auf andere Bereiche übertragen wird – oder als Insellösung stehen bleibt.',
+ niedrig:'Eine niedrige Reife zeigt sich in verstreuten Einzelinitiativen ohne organisatorische Anbindung.',
+ hoch:'Eine hohe Reife zeigt sich in einem etablierten Betriebsmodell mit definierten Übergabepunkten (Pilot → Regelbetrieb) und einem funktionierenden Mechanismus zur bereichsübergreifenden Übertragung.',
+ stufen:['Keine organisatorische Verankerung von KI-Verantwortung, keine Zusammenarbeitsmodelle definiert.','Einzelne Personen übernehmen KI-Verantwortung informell, ohne definiertes Betriebsmodell oder Übertragungsmechanismus für Piloten.','Organisatorische Verankerung (zentral/dezentral/CoE) und Betriebsmodell sind dokumentiert, die Skalierung einzelner Piloten in andere Bereiche bleibt aber Einzelfall.','Betriebsmodell und Zusammenarbeit mit Fachbereich, IT und externen Partnern funktionieren durchgängig, ein Mechanismus zur Übertragung erfolgreicher Piloten ist etabliert.','Organisationsmodell ist bereichsübergreifend skaliert und wird kontinuierlich optimiert, neue Piloten werden nahezu automatisch über etablierte Strukturen übertragen.']},
+{id:5,name:'Rollen & Kompetenzen',lines:['Rollen &','Kompetenzen'],role:'Kerndimension',
+ bedeutung:'Das Etablieren von KI erfordert neue Rollen (z. B. KI-Champions, KI-Architekt, KI-Product-Owner, Data Steward) und den Aufbau von Kompetenzen über alle Ebenen — vom breiten KI-Grundverständnis (AI Literacy) bis zu spezialisiertem Know-how. Diese Dimension bewertet, ob die Organisation über die nötigen Fähigkeiten verfügt oder wo Aufbau- bzw. Partnerbedarf besteht.',
+ abgrenzung:'Diese Dimension erfasst Personen und messbare Fähigkeiten (das „Wer kann“). Die grundsätzliche Haltung/das Commitment regelt Dimension 1, die strukturelle Verankerung der Rollen Dimension 4. Hinweis: AI Literacy ist zudem eine explizite Anforderung des EU AI Act (Art. 4) und verweist regulatorisch auf Dimension 3.',
+ leit:['Sind die für Etablierung, Betrieb und Weiterentwicklung von KI notwendigen Rollen definiert und besetzt?','Ist der Kompetenzaufbau für diese Rollen definiert?','Wie weit ist der Kompetenzaufbau fortgeschritten?'],
+ sichtbar:'Sichtbar wird diese Dimension z. B. daran, ob Rollen wie KI-Champion, KI-Product-Owner oder Data Steward tatsächlich besetzt sind (nicht nur auf dem Papier existieren), und wie weit KI-Grundverständnis über Führung und Mitarbeitende hinweg verbreitet ist.',
+ niedrig:'Eine niedrige Reife zeigt sich in punktuellem Wissen bei wenigen Einzelpersonen ohne strukturierten Aufbau.',
+ hoch:'Eine hohe Reife zeigt sich in definierten, besetzten Rollen und einem organisationsweiten, geplant fortschreitenden Kompetenzaufbauprogramm.',
+ stufen:['Keine KI-bezogenen Rollen definiert, kein KI-Grundverständnis in der Organisation vorhanden.','Einzelne Personen bringen sich punktuell mit KI-Wissen ein, Rollen wie KI-Champion sind nicht offiziell definiert oder besetzt.','Rollen (KI-Champion, Product Owner, Data Steward u. a.) sowie Kompetenzaufbaupläne sind definiert, Besetzung und Schulung laufen erst an.','Notwendige Rollen sind besetzt, der Kompetenzaufbau läuft strukturiert und wird gesteuert, KI-Grundverständnis ist in Führung und Belegschaft breit etabliert.','Rollen- und Kompetenzmodell ist bereichsübergreifend skaliert und wird kontinuierlich weiterentwickelt (inkl. nachweisbarer AI Literacy gemäß EU AI Act Art. 4).']},
+{id:6,name:'Produkte & Prozesse',lines:['Produkte &','Prozesse'],role:'Kerndimension',
+ bedeutung:'Hier wird konkret, wo KI Wirkung entfaltet — in der Verbesserung bestehender Prozesse und Produkte oder in der Schaffung neuer. Diese Dimension bewertet die Prozessreife (Standardisierung, Datenqualität im Prozess) als Voraussetzung für die KI-Integration sowie die Fähigkeit, KI operativ zu verankern statt in Piloten zu verharren.',
+ abgrenzung:'Diese Dimension erfasst Umsetzungsreife und Produktivbetrieb. Die strategische Auswahl/Priorisierung der Use Cases regelt Dimension 2. Skalierung wird hier aus prozessualer Sicht betrachtet.',
+ leit:['Sind die Prozesse in den für KI relevanten Bereichen dokumentiert und standardisiert?','Ist der Ablauf von der Pilotierung zum Regelbetrieb definiert?','Wird KI zur Produkt- und Prozessinnovation eingesetzt?'],
+ sichtbar:'Sichtbar wird diese Dimension z. B. daran, ob es eine Übersicht gibt, welche Prozesse für KI-Einsatz überhaupt geeignet sind (ausreichend standardisiert, Daten verfügbar), und wie viele KI-Anwendungen tatsächlich im Regelbetrieb statt im Pilotstatus laufen.',
+ niedrig:'Eine niedrige Reife zeigt sich in einzelnen Proof-of-Concepts ohne Übergang in den Alltag.',
+ hoch:'Eine hohe Reife zeigt sich in klar definierten Prozess-Ownern, dokumentierten Schnittstellen und einem relevanten Anteil produktiv laufender KI-Anwendungen.',
+ stufen:['Keine Landkarte zur KI-Eignung von Prozessen/Produkten, keine KI-Anwendungen im Einsatz.','Erste, punktuelle Pilotprojekte/PoCs in einzelnen Prozessen, ohne systematische Auswahl oder definierten Übergang in den Regelbetrieb.','Prozesslandkarte, Kriterien für KI-Eignung sowie Prozess-Ownership/Schnittstellenkontrakte sind dokumentiert, der Übergang Pilot → Regelbetrieb ist definiert, aber noch nicht Standard.','KI-Anwendungen laufen durchgängig im Regelbetrieb, Prozessreife und Datenqualität werden aktiv gesteuert und mit Kennzahlen belegt.','KI-gestützte Produkt- und Prozessinnovation ist bereichsübergreifend skaliert, Prozesse werden kontinuierlich weiterentwickelt und optimiert.']},
+{id:7,name:'Technologie & Tools',lines:['Technologie &','Tools'],role:'Kerndimension',
+ bedeutung:'Diese Dimension bewertet die technische Grundlage — Plattformen, Infrastruktur, Tool-Landschaft und Integrationsfähigkeit in die bestehende IT. Sie umfasst auch die Frage nach bewusster Standardisierung vs. unkontrolliertem Wildwuchs (Schatten-KI) sowie die Fähigkeit, KI-Lösungen sicher, wartbar und skalierbar zu betreiben.',
+ abgrenzung:'Diese Dimension erfasst die technische Basis und Betreibbarkeit. Skalierung wird hier aus technischer Sicht betrachtet (Infrastruktur/Architektur), organisatorische und prozessuale Skalierung liegen in Dimension 4 bzw. 6.',
+ leit:['Existiert eine definierte, integrierbare KI-Tool- und Plattformlandschaft (vs. unkontrollierter Wildwuchs)?','Wie gut lassen sich KI-Lösungen in bestehende Systeme und Datenflüsse integrieren?','Wie gut sind Sicherheit, Wartbarkeit und technische Skalierbarkeit der eingesetzten KI-Technologie gewährleistet?'],
+ sichtbar:'Sichtbar wird diese Dimension z. B. daran, ob es eine bewusst ausgewählte, überschaubare Tool-Landschaft gibt oder ob Mitarbeitende unkontrolliert eigene KI-Tools nutzen (Schatten-KI), und wie einfach sich KI-Lösungen an bestehende Systeme anbinden lassen.',
+ niedrig:'Eine niedrige Reife zeigt sich in unkoordinierter Tool-Vielfalt und Insellösungen ohne Integration.',
+ hoch:'Eine hohe Reife zeigt sich in einer definierten, integrierten Plattformlandschaft mit geklärter Sicherheit, Wartbarkeit und Skalierbarkeit.',
+ stufen:['Keine definierte Tool- oder Plattformlandschaft, keine Integration, keine Vorkehrungen zu Sicherheit oder Wartbarkeit.','Einzelne Tools werden unkoordiniert von Mitarbeitenden genutzt (Schatten-KI), Integration in bestehende Systeme ist Einzelfall.','Eine Ziel-Tool- und Plattformlandschaft sowie Integrationsanforderungen sind definiert, die Umsetzung läuft aber erst an.','Eine definierte, integrierbare KI-Tool-Landschaft ist im Einsatz, Sicherheit, Wartbarkeit und Skalierbarkeit sind durchgängig gewährleistet und werden überwacht.','Die technische Plattform ist bereichsübergreifend skaliert, die Architektur wird kontinuierlich weiterentwickelt, Schatten-KI ist durch attraktive Standardlösungen faktisch verdrängt.']},
+{id:8,name:'Wissensbasis & Datenquellen',lines:['Wissensbasis &','Datenquellen'],role:'Fundament',
+ bedeutung:'Als Fundament im Zentrum gilt: KI ist nur so gut wie die Daten und das Wissen, auf die sie zugreift. Diese Dimension bewertet Verfügbarkeit, Qualität, Zugänglichkeit und Governance von Daten und explizitem Unternehmenswissen. Sie ist Voraussetzung für alle anderen Dimensionen — ohne belastbare Datenbasis bleibt die KI-Wirkung begrenzt.',
+ abgrenzung:'Diese Dimension erfasst die operative Data Governance (Ownership, Qualität, Zugriff, Aktualität) als „Womit“. Regulatorische Anforderungen an den Datenumgang (z. B. Datenschutz, AI-Act-Konformität) liegen in Dimension 3.',
+ leit:['Wie verfügbar, qualitativ und zugänglich sind für KI relevante Daten- und Wissensquellen?','Wie ist Data Governance (Ownership, Qualität, Zugriff, Aktualität) etabliert?','Wie gut ist explizites und implizites Unternehmenswissen maschinell nutzbar gemacht?'],
+ sichtbar:'Sichtbar wird diese Dimension z. B. daran, ob klar ist, wer für welche Daten verantwortlich ist (Ownership), wie aktuell und zugänglich relevante Datenquellen sind, und ob implizites Wissen (z. B. Erfahrungswissen einzelner Mitarbeitender) überhaupt dokumentiert bzw. maschinenlesbar vorliegt.',
+ niedrig:'Eine niedrige Reife zeigt sich in verstreuten, schwer zugänglichen oder veralteten Datenquellen ohne geklärte Verantwortlichkeit.',
+ hoch:'Eine hohe Reife zeigt sich in etablierter Data Governance und einem aktiv gepflegten, für KI nutzbaren Wissensbestand.',
+ stufen:['Keine Übersicht über Datenquellen, keine Data Governance, Wissen liegt ausschließlich implizit bei Einzelpersonen.','Erste, punktuelle Bemühungen um Datenverfügbarkeit, Ownership und Qualität sind ungeklärt, maschinelle Nutzbarkeit von Wissen ist Einzelfall.','Data Governance (Ownership, Qualität, Zugriff, Aktualität) ist dokumentiert, Vorhaben zur Erschließung impliziten Wissens sind definiert, aber noch nicht flächendeckend umgesetzt.','Daten- und Wissensquellen sind durchgängig verfügbar, qualitätsgesichert und zugänglich, Data Governance wird aktiv gesteuert und mit Kennzahlen unterlegt.','Die Daten- und Wissensbasis ist bereichsübergreifend integriert, wird kontinuierlich aktuell gehalten und optimiert, explizites wie implizites Wissen ist weitgehend maschinell nutzbar.']}
+];
+var ABGR=[
+ {t:'Haltung und Commitment der Führung',d:[1],h:'Die messbare Kompetenz/Qualifizierung ist Gegenstand von Dimension 5.'},
+ {t:'Messbare Kompetenz und Qualifizierung („Wer kann“)',d:[5],h:'Die grundsätzliche Haltung/das Commitment regelt Dimension 1, die strukturelle Verankerung der Rollen Dimension 4.'},
+ {t:'AI Literacy (EU AI Act Art. 4)',d:[5],h:'Explizite Anforderung des EU AI Act; verweist regulatorisch auf Dimension 3.'},
+ {t:'Auswahl und Priorisierung von Use Cases',d:[2],h:'Umsetzungsreife und Produktiveinsatz sind Gegenstand von Dimension 6.'},
+ {t:'Umsetzungsreife und Produktivbetrieb',d:[6],h:'Die strategische Auswahl/Priorisierung der Use Cases regelt Dimension 2.'},
+ {t:'Regeln, Rechte und Kontrolle („Dürfen“), Entscheidungs- und Kontrollrechte',d:[3],h:'Die organisatorische Verankerung regelt Dimension 4, die operative Data Governance Dimension 8.'},
+ {t:'Regulatorische Anforderungen an den Datenumgang (z. B. Datenschutz, AI-Act-Konformität)',d:[3],h:'Die operative Data Governance (Ownership, Qualität, Zugriff, Aktualität) liegt in Dimension 8.'},
+ {t:'Struktur und Zusammenarbeit („Wo/Wie organisiert“), strukturelle Verankerung der Rollen',d:[4],h:'Entscheidungs- und Kontrollrechte regelt Dimension 3, die konkrete Personen- und Kompetenzbesetzung Dimension 5.'},
+ {t:'Technische Basis und Betreibbarkeit',d:[7],h:'Organisatorische und prozessuale Skalierung liegen in Dimension 4 bzw. 6.'},
+ {t:'Operative Data Governance („Womit“): Ownership, Qualität, Zugriff, Aktualität',d:[8],h:'Regulatorische Anforderungen an den Datenumgang liegen in Dimension 3.'},
+ {t:'Skalierung (Querschnittsthema)',d:[4,6,7],h:'Wird bewusst aus drei Perspektiven bewertet: organisatorisch (Dimension 4), prozessual (Dimension 6) und technisch (Dimension 7), um Doppelzählungen zu vermeiden.'}
+];
+
+/* ---------- Zustand ---------- */
+var A=store.get('itonic-dim-assess-v1')||{};
+A.ist=A.ist||{};A.soll=A.soll||{};A.note=A.note||{};
+if(!A.sel||typeof A.sel!=='object')A.sel={};
+var TAB={};
+var MGR={};      /* Verwaltung je Dimension geöffnet */
+var EDITQ=null;  /* ID der Frage im Bearbeitungsmodus */
+var MMSG={};     /* Meldung im Verwaltungsbereich */
+
+/* ---------- Leitfragen-Bibliothek ---------- */
+var QMAX=400,QPERDIM=30;
+var LIB={};            /* eigene Fragen: {dimId:[{id,text}]} */
+function newId(){return 'c'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);}
+function cleanLib(o){
+  /* prüft und bereinigt eine Bibliothek; liefert {lib} oder {err} */
+  if(!o||o.format!=='itonic-leitfragen'||!o.fragen||typeof o.fragen!=='object')return {err:'Diese Datei enthält keine Leitfragen für diese Anwendung.'};
+  var lib={},seen={};
+  for(var d=1;d<=8;d++){
+    var arr=Array.isArray(o.fragen[d])?o.fragen[d]:[];lib[d]=[];
+    for(var i=0;i<arr.length&&lib[d].length<QPERDIM;i++){
+      var q=arr[i],t=q&&typeof q.text==='string'?q.text.replace(/\s+/g,' ').trim().slice(0,QMAX):'';
+      if(!t)continue;
+      /* Basisfragen bleiben fix: gleicher Wortlaut wie eine Basisfrage wird nicht als eigene Frage übernommen */
+      if(DIMS[d-1].leit.some(function(b){return b.toLowerCase().replace(/\s+/g,' ')===t.toLowerCase();}))continue;
+      var id=(typeof q.id==='string'&&/^c[A-Za-z0-9_-]{1,40}$/.test(q.id)&&!seen[q.id])?q.id:newId();
+      seen[id]=true;lib[d].push({id:id,text:t});
+    }
+  }
+  return {lib:lib};
+}
+function emptyLib(){var l={};for(var d=1;d<=8;d++)l[d]=[];return l;}
+function libObj(){return {format:'itonic-leitfragen',version:1,saved:new Date().toISOString(),fragen:LIB};}
+function libSave(){store.set('itonic-lib-v1',LIB);}
+function hasOwnQ(){return DIMS.some(function(d){return (LIB[d.id]||[]).length>0;});}
+(function initLib(){
+  var local=store.get('itonic-lib-v1'),r=local?cleanLib({format:'itonic-leitfragen',fragen:local}):null;
+  LIB=r&&r.lib?r.lib:emptyLib();
+})();
+function baseQ(d){return d.leit.map(function(t,i){return {id:'b'+(i+1),text:t,basis:true};});}
+function allQ(d){return baseQ(d).concat((LIB[d.id]||[]).map(function(q){return {id:q.id,text:q.text,basis:false};}));}
+function activeQ(d){
+  var all=allQ(d),sel=A.sel[d.id];
+  if(!Array.isArray(sel))return all.filter(function(q){return q.basis;});
+  return all.filter(function(q){return sel.indexOf(q.id)>-1;});
+}
+function setActive(d,id,on){
+  var cur=activeQ(d).map(function(q){return q.id;}),p=cur.indexOf(id);
+  if(on&&p<0)cur.push(id);if(!on&&p>-1)cur.splice(p,1);
+  A.sel[d.id]=cur;store.set('itonic-dim-assess-v1',A);
+}
+function pruneSel(){
+  /* entfernt Auswahl-IDs eigener Fragen, die es in der Bibliothek nicht mehr gibt; liefert die Anzahl */
+  var n=0;
+  DIMS.forEach(function(d){
+    var s=A.sel[d.id];if(!Array.isArray(s))return;
+    var ids=allQ(d).map(function(q){return q.id;});
+    var keep=s.filter(function(x){return ids.indexOf(x)>-1;});
+    n+=s.length-keep.length;A.sel[d.id]=keep;
+  });
+  store.set('itonic-dim-assess-v1',A);
+  return n;
+}
+function countQ(){
+  var a=0,t=0;DIMS.forEach(function(d){a+=activeQ(d).length;t+=allQ(d).length;});return {a:a,t:t};
+}
+function dateStr(){var d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);}
+function download(fn,text,type){
+  var blob=new Blob([text],{type:type}),u=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=u;a.download=fn;document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(u);},2000);
+}
+function parseLibText(txt){
+  var t=String(txt).trim().replace(/^[\s\S]*?window\.ITONIC_LEITFRAGEN\s*=\s*/,function(m){return /ITONIC_LEITFRAGEN/.test(m)?'':m;}).replace(/;\s*$/,'');
+  var o;try{o=JSON.parse(t);}catch(e){return {err:'Die Datei konnte nicht gelesen werden, sie ist beschädigt oder hat ein falsches Format.'};}
+  return cleanLib(o);
+}
+var MX={sel:null,full:false};
+var FOCUS=1;
+var cur=0;
+var stage=$('#stage');
+
+function dimById(n){return DIMS[n-1];}
+function goDim(n){
+  for(var i=0;i<SLIDES.length;i++){if(SLIDES[i].dim===+n){go(i);return;}}
+}
+
+/* ---------- Folien ---------- */
+function renderTitle(el){
+  el.innerHTML='<div class="title-slide">'+
+   '<div class="ovbtn" style="display:flex;gap:10px"><button class="btn onDark sm" type="button" id="prT" title="Aktuelle Seite drucken (Strg+P)">Drucken</button><button class="btn onDark sm" type="button" id="ovT">Übersicht</button></div>'+
+   '<img alt="itonic advisors" src="'+LOGO_WHITE+'">'+
+   '<p class="kicker">itonic AI Assessment <span class="sep" aria-hidden="true"></span> AI Strategy &amp; Roadmap</p><h1>KI-Standortbestimmung</h1><div class="bar"></div>'+
+   '<p class="sub">Standortbestimmung und Reifegradbewertung der KI-Etablierung in Organisationen anhand des organisatorisch-technologischen Umfelds</p>'+
+   '<div class="cta"><button class="btn onDark" type="button" id="start">Einführung</button><button class="btn onDark" type="button" id="toAssess">Standortbestimmung erstellen</button></div>'+
+   '<p class="meta">Grundlage: itonic Offering „KI Betrachtungsdimensionen“, Stand 11.09.2026<br>Navigation: Pfeiltasten oder Leertaste | Taste O öffnet die Übersicht</p>'+
+   '</div>';
+  $('#ovT').onclick=openOv;
+  $('#prT').onclick=function(){window.print();};
+  $('#start').onclick=function(){go(1);};
+  $('#toAssess').onclick=function(){go(SLIDES.length-1);};
+}
+
+function renderZweck(el){
+  el.innerHTML='<div class="slide">'+
+   '<div class="eyebrow">Einführung</div><h1>Zweck und Aufbau</h1><div class="rule"></div>'+
+   '<p class="lead" style="margin-top:20px;max-width:900px">Acht Betrachtungsdimensionen als Grundlage für die strategisch-taktische Standortbestimmung und Reifegradeinschätzung der Einbettung von KI in einer Organisation.</p>'+
+   '<div class="grid g3" style="margin-top:22px">'+
+    '<div class="card"><div class="eyebrow">Zweck</div><h3>Standortbestimmung</h3><p>Grundlage für ein Assessment und die Reifegradbestimmung der KI-Etablierung im Unternehmen.</p></div>'+
+    '<div class="card"><div class="eyebrow">Ebene</div><h3>Strategisch-taktisch</h3><p>Betrachtet wird die Verankerung von KI in der Organisation, nicht einzelne technische Details.</p></div>'+
+    '<div class="card"><div class="eyebrow">Aufbau je Dimension</div><h3>Vier Bausteine</h3><p>Kurzbeschreibung, Abgrenzungshinweis, Leitfragen und eine fünfstufige Reifegradskala.</p></div>'+
+   '</div>'+
+   '<div class="callout" style="margin-top:22px"><h3>Prinzip: führende Dimension</h3><p style="margin:0">Die Dimensionen sind bewusst überlappende Betrachtungsperspektiven statt trennscharfer Container. Jedes Thema wird einer führenden Dimension zugeordnet, um im Assessment Doppelzählungen zu vermeiden.</p></div>'+
+   '<div class="grid g3" style="margin-top:22px">'+
+    '<div class="card tint"><div class="stat">1</div><p style="margin:8px 0 0"><b>Rahmen</b><br>Culture &amp; Leadership umschließt alle anderen Dimensionen.</p></div>'+
+    '<div class="card tint"><div class="stat">6</div><p style="margin:8px 0 0"><b>Kerndimensionen</b><br>Strategie, Governance, Organisation, Rollen, Produkte &amp; Prozesse, Technologie.</p></div>'+
+    '<div class="card tint"><div class="stat">1</div><p style="margin:8px 0 0"><b>Fundament</b><br>Wissensbasis &amp; Datenquellen im Zentrum.</p></div>'+
+   '</div>'+
+   '<div style="margin-top:26px"><button class="btn" type="button" id="nx">Zum Modell</button></div>'+
+  '</div>';
+  $('#nx').onclick=function(){go(2);};
+}
+
+function sector(a0,a1,r0,r1){
+  var cx=310,cy=310;
+  function p(r,a){var t=a*Math.PI/180;return [cx+r*Math.cos(t),cy+r*Math.sin(t)];}
+  var s0=p(r1,a0),e0=p(r1,a1),s1=p(r0,a1),e1=p(r0,a0);
+  return 'M'+s0[0].toFixed(1)+' '+s0[1].toFixed(1)+' A'+r1+' '+r1+' 0 0 1 '+e0[0].toFixed(1)+' '+e0[1].toFixed(1)+
+   ' L'+s1[0].toFixed(1)+' '+s1[1].toFixed(1)+' A'+r0+' '+r0+' 0 0 0 '+e1[0].toFixed(1)+' '+e1[1].toFixed(1)+' Z';
+}
+var modelSel=0;
+function modelSvg(){
+  var cx=310,cy=310,out='';
+  out+='<svg viewBox="0 0 620 620" role="group" aria-label="Modell der acht Betrachtungsdimensionen">';
+  out+='<defs><path id="pTop" d="M'+(cx-270)+' '+(cy-0)+' A270 270 0 0 1 '+(cx+270)+' '+cy+'"/><path id="pBot" d="M'+(cx-270)+' '+cy+' A270 270 0 0 0 '+(cx+270)+' '+cy+'"/></defs>';
+  // Rahmen
+  out+='<g class="seg-g" data-d="1" tabindex="0" role="button" aria-label="1 Culture &amp; Leadership">';
+  out+='<circle class="shape" data-fill="ring" cx="'+cx+'" cy="'+cy+'" r="270" fill="#055F7D" stroke="#fff" stroke-width="0"/>';
+  out+='<circle cx="'+cx+'" cy="'+cy+'" r="244" fill="#fff"/>';
+  out+='<path class="shape" data-fill="ring" fill-rule="evenodd" d="M'+(cx-296)+' '+cy+' a296 296 0 1 0 592 0 a296 296 0 1 0 -592 0 Z M'+(cx-244)+' '+cy+' a244 244 0 1 1 488 0 a244 244 0 1 1 -488 0 Z" fill="#055F7D"/>';
+  out+='<text fill="#fff" font-size="20" font-weight="700" letter-spacing="1"><textPath href="#pTop" startOffset="50%" text-anchor="middle" style="dominant-baseline:auto">1 · CULTURE &amp; LEADERSHIP</textPath></text>';
+  out+='<text fill="#fff" font-size="20" font-weight="700" letter-spacing="1"><textPath href="#pBot" startOffset="50%" text-anchor="middle">RAHMEN</textPath></text>';
+  out+='</g>';
+  // Segmente 2-7
+  for(var k=0;k<6;k++){
+    var d=DIMS[k+1],a0=-90+60*k+1.8,a1=-90+60*(k+1)-1.8,am=(a0+a1)/2*Math.PI/180;
+    var lx=cx+174*Math.cos(am),ly=cy+174*Math.sin(am);
+    out+='<g class="seg-g" data-d="'+d.id+'" tabindex="0" role="button" aria-label="'+d.id+' '+esc(d.name)+'">';
+    out+='<path class="shape" data-fill="core" d="'+sector(a0,a1,118,232)+'" fill="#AAE0E8"/>';
+    out+='<text class="lab" x="'+lx.toFixed(1)+'" y="'+(ly-18).toFixed(1)+'" text-anchor="middle" font-size="34" font-weight="700" fill="#055F7D">'+d.id+'</text>';
+    out+='<text class="lab" x="'+lx.toFixed(1)+'" y="'+(ly+8).toFixed(1)+'" text-anchor="middle" font-size="16" font-weight="700" fill="#055F7D">'+esc(d.lines[0])+'</text>';
+    out+='<text class="lab" x="'+lx.toFixed(1)+'" y="'+(ly+27).toFixed(1)+'" text-anchor="middle" font-size="16" font-weight="700" fill="#055F7D">'+esc(d.lines[1])+'</text>';
+    out+='</g>';
+  }
+  // Zentrum
+  out+='<g class="seg-g" data-d="8" tabindex="0" role="button" aria-label="8 Wissensbasis &amp; Datenquellen">';
+  out+='<circle class="shape" data-fill="center" cx="'+cx+'" cy="'+cy+'" r="104" fill="#1A5276"/>';
+  out+='<text x="'+cx+'" y="'+(cy-30)+'" text-anchor="middle" font-size="36" font-weight="700" fill="#fff">8</text>';
+  out+='<text x="'+cx+'" y="'+(cy+0)+'" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">Wissensbasis &amp;</text>';
+  out+='<text x="'+cx+'" y="'+(cy+21)+'" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">Datenquellen</text>';
+  out+='<text x="'+cx+'" y="'+(cy+48)+'" text-anchor="middle" font-size="13" fill="#AAE0E8" letter-spacing="1.5">FUNDAMENT</text>';
+  out+='</g>';
+  out+='</svg>';
+  return out;
+}
+function paintModel(){
+  $$('.seg-g',stage).forEach(function(g){
+    var d=+g.getAttribute('data-d'),sel=(d===modelSel);
+    var shapes=$$('.shape',g),kind=shapes[0].getAttribute('data-fill');
+    shapes.forEach(function(s){
+      var f;
+      if(kind==='ring')f=sel?'#1A5276':'#055F7D';
+      else if(kind==='center')f=sel?'#055F7D':'#1A5276';
+      else f=sel?'#077FA9':'#AAE0E8';
+      s.setAttribute('fill',f);
+      if(sel){s.setAttribute('stroke','#2DB4D2');s.setAttribute('stroke-width','4');}else{s.setAttribute('stroke','none');}
+    });
+    if(kind==='core'){$$('.lab',g).forEach(function(t){t.setAttribute('fill',sel?'#fff':'#055F7D');});}
+  });
+}
+function modelPanel(){
+  var p=$('#mpanel');
+  if(!modelSel){p.innerHTML='<p class="hint">Klicke auf den Rahmen, ein Segment oder das Zentrum, um die Dimension zu öffnen.</p><p class="hint">Der äußere Ring (1) umschließt alle anderen Dimensionen, das Zentrum (8) bildet das Fundament, dazwischen liegen die sechs Kerndimensionen (2–7).</p>';return;}
+  var d=dimById(modelSel);
+  p.innerHTML='<span class="pill">'+esc(d.role)+'</span><h2 style="margin:10px 0 10px">'+d.id+'. '+esc(d.name)+'</h2>'+
+   '<p>'+esc(d.bedeutung)+'</p>'+
+   '<div class="callout" style="margin:14px 0"><h3>Abgrenzung</h3><p style="margin:0;font-size:.95rem">'+link(d.abgrenzung)+'</p></div>'+
+   '<button class="btn" type="button" id="openDim">Details öffnen</button>';
+  $('#openDim').onclick=function(){goDim(modelSel);};
+}
+function renderModell(el){
+  el.innerHTML='<div class="slide">'+
+   '<div class="eyebrow">Einführung</div><h1>Das Modell: acht Betrachtungsdimensionen</h1><div class="rule"></div>'+
+   '<div class="model"><div>'+modelSvg()+
+   '<div class="legend"><span class="l1">Rahmen</span><span class="l2">Kerndimensionen</span><span class="l3">Fundament</span></div></div>'+
+   '<div class="panel" id="mpanel"></div></div></div>';
+  paintModel();modelPanel();
+  $$('.seg-g',el).forEach(function(g){
+    function pick(){modelSel=+g.getAttribute('data-d');paintModel();modelPanel();}
+    g.addEventListener('click',pick);
+    g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();pick();}});
+    g.addEventListener('mouseenter',function(){var s=$('.shape',g);if(+g.getAttribute('data-d')!==modelSel){var k=s.getAttribute('data-fill');s.setAttribute('fill',k==='core'?'#2DB4D2':(k==='center'?'#055F7D':'#1A5276'));}});
+    g.addEventListener('mouseleave',paintModel);
+  });
+}
+
+function strip(cur){
+  return '<div class="strip" role="group" aria-label="Dimension wählen">'+DIMS.map(function(d){return '<button type="button" data-d="'+d.id+'" title="'+esc(d.name)+'"'+(d.id===cur?' aria-current="true"':'')+'>'+d.id+'</button>';}).join('')+'</div>';
+}
+function mgrPanel(d){
+  var all=allQ(d),act=activeQ(d).map(function(q){return q.id;});
+  var h='<div class="mgr" id="mgr"><h3>Leitfragen verwalten: '+esc(d.name)+'</h3>'+
+   '<p class="note-s" style="margin:0 0 6px">Häkchen = Frage wird in dieser Standortbestimmung verwendet. Basisfragen sind schreibgeschützt, eigene Fragen kannst Du ändern und löschen.</p>';
+  h+=all.map(function(q){
+    var on=act.indexOf(q.id)>-1;
+    if(!q.basis&&EDITQ===q.id)return '<div class="mrow"><input type="text" id="editq" maxlength="'+QMAX+'" value="'+esc(q.text)+'" aria-label="Leitfrage bearbeiten"><button type="button" class="btn sm" data-act="save" data-id="'+q.id+'">Übernehmen</button><button type="button" class="btn sec sm" data-act="cancel">Abbrechen</button></div>';
+    return '<div class="mrow"><label><input type="checkbox" data-act="use" data-id="'+q.id+'"'+(on?' checked':'')+'><span>'+esc(q.text)+'</span></label>'+
+      (q.basis?'':'<button type="button" class="btn sec sm" data-act="edit" data-id="'+q.id+'">Ändern</button><button type="button" class="btn sec sm" data-act="del" data-id="'+q.id+'">Löschen</button>')+'</div>';
+  }).join('');
+  var own=(LIB[d.id]||[]).length;
+  h+='<div class="mbar"><input type="text" id="newq" maxlength="'+QMAX+'" placeholder="Neue Leitfrage" aria-label="Neue Leitfrage"'+(own>=QPERDIM?' disabled':'')+'><button type="button" class="btn sm" data-act="add"'+(own>=QPERDIM?' disabled':'')+'>Hinzufügen</button>'+
+    '<button type="button" class="btn sec sm" data-act="basis">Auswahl auf Basisfragen zurücksetzen</button>'+
+    '<button type="button" class="btn sec sm" data-act="clear"'+(own?'':' disabled')+'>Eigene Leitfragen dieser Dimension entfernen'+(own?' ('+own+')':'')+'</button></div>';
+  h+='<div class="mwarn'+(MMSG.err?' err':'')+'" id="mmsg" role="status">'+esc(MMSG.t||('Eigene Fragen: '+own+' von max. '+QPERDIM+' in dieser Dimension.'))+'</div>';
+  h+='<h3 style="margin-top:18px">Eigene Leitfragen speichern und öffnen</h3>'+
+    '<p class="note-s" style="margin:0 0 6px">Mit <b>Leitfragen speichern</b> sicherst Du die eigenen Leitfragen aller Dimensionen als Datei. Mit <b>Leitfragen öffnen</b> ersetzt Du alle eigenen Leitfragen durch die aus der Datei; die Basisfragen bleiben immer erhalten.</p>'+
+    '<p class="note-s" style="margin:0 0 8px">Welche Leitfragen in einer Standortbestimmung gelten, wird mit der Standortbestimmung gespeichert („Speichern (Datei)“ auf Folie 15).</p>'+
+    '<div class="mbar" style="margin-top:0"><button type="button" class="btn sm" data-act="expjson">Leitfragen speichern</button><button type="button" class="btn sec sm" data-act="imp">Leitfragen öffnen</button>'+
+    '<input type="file" id="libfile" accept=".js,.json,application/json,text/javascript,text/plain" style="display:none"></div></div>';
+  return h;
+}
+function normQ(s){return String(s||'').replace(/\s+/g,' ').trim().slice(0,QMAX);}
+function dupQ(d,t,exceptId){
+  var n=t.toLowerCase();
+  return allQ(d).some(function(q){return q.id!==exceptId&&q.text.toLowerCase().replace(/\s+/g,' ')===n;});
+}
+function bindMgr(mg,d,paint){
+  function say(t,err){MMSG={t:t,err:!!err};}
+  mg.addEventListener('change',function(e){
+    var t=e.target;
+    if(t&&t.getAttribute&&t.getAttribute('data-act')==='use'){setActive(d,t.getAttribute('data-id'),t.checked);MMSG={};paint();}
+  });
+  mg.addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&e.target&&(e.target.id==='newq'||e.target.id==='editq')){e.preventDefault();var b=$(e.target.id==='newq'?'[data-act="add"]':'[data-act="save"]',mg);if(b)b.click();}
+    else if(e.key==='Escape'&&EDITQ){EDITQ=null;paint();}
+  });
+  mg.addEventListener('click',function(e){
+    var b=e.target.closest?e.target.closest('button[data-act]'):null;
+    if(!b||!mg.contains(b))return;
+    var a=b.getAttribute('data-act'),id=b.getAttribute('data-id');
+    if(a==='add'){
+      var t=normQ($('#newq',mg).value);
+      if(!t)say('Bitte zuerst eine Frage eingeben.',true);
+      else if(dupQ(d,t))say('Diese Frage gibt es in der Bibliothek bereits.',true);
+      else if((LIB[d.id]||[]).length>=QPERDIM)say('Maximal '+QPERDIM+' eigene Fragen je Dimension.',true);
+      else{var q={id:newId(),text:t};LIB[d.id]=(LIB[d.id]||[]).concat([q]);libSave();setActive(d,q.id,true);say('Frage hinzugefügt und aktiviert.');}
+      paint();var n=$('#newq',tp(mg));if(n)n.focus();
+    }else if(a==='edit'){EDITQ=id;MMSG={};paint();var ed=$('#editq',mg.parentNode);if(ed){ed.focus();}}
+    else if(a==='cancel'){EDITQ=null;MMSG={};paint();}
+    else if(a==='save'){
+      var t2=normQ($('#editq',mg).value);
+      if(!t2)say('Die Frage darf nicht leer sein.',true);
+      else if(dupQ(d,t2,id))say('Diese Frage gibt es in der Bibliothek bereits.',true);
+      else{(LIB[d.id]||[]).forEach(function(q){if(q.id===id)q.text=t2;});libSave();EDITQ=null;say('Frage geändert.');}
+      paint();
+    }else if(a==='del'){
+      var ok=true;try{ok=window.confirm('Diese eigene Leitfrage endgültig aus der Bibliothek löschen?');}catch(x){}
+      if(ok){
+        LIB[d.id]=(LIB[d.id]||[]).filter(function(q){return q.id!==id;});libSave();
+        if(Array.isArray(A.sel[d.id]))A.sel[d.id]=A.sel[d.id].filter(function(x){return x!==id;});
+        store.set('itonic-dim-assess-v1',A);
+        say('Frage gelöscht.');
+      }
+      paint();
+    }else if(a==='basis'){delete A.sel[d.id];store.set('itonic-dim-assess-v1',A);say('Auswahl auf die Basisfragen zurückgesetzt.');paint();}
+    else if(a==='expjson'){
+      try{
+        download('itonic-leitfragen_'+dateStr()+'.json',JSON.stringify(libObj(),null,2),'application/json');
+        say('Eigene Leitfragen als Datei gespeichert. Zum Öffnen „Leitfragen öffnen“ wählen.');
+      }catch(x){say('Die Datei konnte nicht gespeichert werden.',true);}
+      paint();
+    }else if(a==='imp'){$('#libfile',mg).click();}
+    else if(a==='clear'){
+      var cn=(LIB[d.id]||[]).length;
+      if(!cn){say('In dieser Dimension gibt es keine eigenen Leitfragen.',true);paint();return;}
+      var ok4=true;try{ok4=window.confirm(cn+(cn===1?' eigene Leitfrage':' eigene Leitfragen')+' der Dimension „'+d.name+'“ entfernen? Die Basisfragen und die eigenen Leitfragen der anderen Dimensionen bleiben erhalten.');}catch(x){}
+      if(ok4){LIB[d.id]=[];libSave();var dr=pruneSel();EDITQ=null;say(cn+(cn===1?' eigene Leitfrage':' eigene Leitfragen')+' dieser Dimension entfernt.'+(dr?' '+dr+' davon waren in der Auswahl aktiv.':''));}
+      paint();
+    }
+  });
+  var lf=$('#libfile',mg);
+  if(lf)lf.addEventListener('change',function(){
+    var f=this.files&&this.files[0],inp=this;if(!f)return;
+    var fr=new FileReader();
+    fr.onload=function(){
+      var r=parseLibText(String(fr.result));
+      if(r.err)say(r.err,true);
+      else{
+        var ok3=true;
+        if(hasOwnQ()){try{ok3=window.confirm('Deine aktuellen eigenen Leitfragen werden durch die aus der Datei ersetzt. Die Basisfragen bleiben erhalten. Fortfahren?');}catch(x){}}
+        if(ok3){
+          LIB=r.lib;libSave();var dr2=pruneSel();
+          var cnt=0;DIMS.forEach(function(x){cnt+=(LIB[x.id]||[]).length;});
+          say('Leitfragen geöffnet: '+cnt+(cnt===1?' eigene Leitfrage.':' eigene Leitfragen.')+(dr2?' '+dr2+' bisher aktive eigene Leitfrage(n) sind nicht mehr vorhanden und wurden aus der Auswahl entfernt.':'')+' Wähle je Dimension unter „Leitfragen verwalten“, welche gelten sollen.');
+        }
+      }
+      inp.value='';paint();
+    };
+    fr.onerror=function(){say('Datei konnte nicht gelesen werden.',true);paint();};
+    fr.readAsText(f);
+  });
+}
+function tp(mg){return mg.parentNode;}
+function dimPanel(d,tab){
+  var h='';
+  if(tab==='ueberblick'){
+    h+='<div class="grid g2"><div class="card"><h3>Bedeutung</h3><p style="margin:0;font-size:1.2rem;line-height:1.7">'+esc(d.bedeutung)+'</p></div>'+
+       '<div class="callout"><h3>Abgrenzung</h3><p style="margin:0;font-size:1.2rem;line-height:1.7">'+link(d.abgrenzung)+'</p></div></div>';
+  }else if(tab==='leit'){
+    var aq=activeQ(d);
+    h+='<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:10px"><p class="note-s grow" style="margin:0">Aktive Leitfragen für diese Standortbestimmung: '+aq.length+' von '+allQ(d).length+'.</p><button type="button" class="btn sec sm" id="mgrbtn" aria-controls="mgr" aria-expanded="'+(!!MGR[d.id])+'">Leitfragen verwalten<svg class="chev" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="'+(MGR[d.id]?'M2 8l4-4 4 4':'M2 4l4 4 4-4')+'" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>';
+    h+=aq.length?aq.map(function(q,i){return '<div class="lf" data-id="'+q.id+'"><span class="n">'+(i+1)+'</span><span class="q">'+esc(q.text)+'</span>'+(q.basis?'<span class="tag">Basis</span>':'')+'</div>';}).join(''):'<p class="note-s">Für diese Dimension ist keine Leitfrage aktiv. Über „Leitfragen verwalten“ kannst Du Fragen auswählen oder ergänzen.</p>';
+    if(MGR[d.id])h+=mgrPanel(d);
+  }else if(tab==='stand'){
+    h+='<div class="callout" style="margin-bottom:20px"><h3>Woran wird Reifegrad sichtbar?</h3><p style="margin:0;font-size:1.05rem">'+esc(d.sichtbar)+'</p></div>'+
+       '<div class="grid g2 cmp"><div class="card lo"><div class="eyebrow" style="color:var(--gd)">Niedrige Reife</div><p style="margin:0;font-size:1.05rem">'+esc(d.niedrig)+'</p></div>'+
+       '<div class="card hi"><div class="eyebrow">Hohe Reife</div><p style="margin:0;font-size:1.05rem">'+esc(d.hoch)+'</p></div></div>'+
+       '<h3 style="margin:26px 0 12px">Reifegradstufen 0–4</h3>';
+    h+=d.stufen.map(function(t,i){return '<div class="lvrow"><div><span class="lvbadge lvbg lv'+i+'">Stufe '+i+'</span><span class="nm">'+esc(LEVELS[i])+'</span></div><div>'+esc(t)+'</div><div class="lvbar" aria-hidden="true">'+[0,1,2,3,4].map(function(k){return '<i'+(k<=i?' class="on"':'')+'></i>';}).join('')+'</div></div>';}).join('');
+  }
+  return h;
+}
+function renderDim(el,d){
+  var tab=TAB[d.id]||'ueberblick';
+  var tabs=[['ueberblick','Überblick'],['leit','Leitfragen'],['stand','Reifegrad']];
+  el.innerHTML='<div class="slide">'+
+   '<div class="sh"><div class="dimnum">'+d.id+'</div><div class="grow"><div class="eyebrow">'+esc(d.role)+'</div><h1>'+esc(d.name)+'</h1></div><button class="btn sec sm" type="button" id="toModel">Zum Modell</button>'+strip(d.id)+'</div>'+
+   '<div class="tabs" role="tablist">'+tabs.map(function(t){return '<button type="button" class="tab" role="tab" data-t="'+t[0]+'" aria-selected="'+(t[0]===tab)+'">'+t[1]+'</button>';}).join('')+'</div>'+
+   '<div id="tp"></div></div>';
+  $('#toModel',el).onclick=function(){go(2);};
+  var tp=$('#tp',el);
+  function paint(){
+    tab=TAB[d.id]||'ueberblick';
+    $$('.tab',el).forEach(function(b){b.setAttribute('aria-selected',String(b.getAttribute('data-t')===tab));});
+    tp.innerHTML=dimPanel(d,tab);
+    var mb=$('#mgrbtn',tp);
+    if(mb)mb.onclick=function(){MGR[d.id]=!MGR[d.id];EDITQ=null;MMSG={};paint();};
+    var mg=$('#mgr',tp);
+    if(mg)bindMgr(mg,d,paint);
+  }
+  $$('.tab',el).forEach(function(b){b.onclick=function(){TAB[d.id]=b.getAttribute('data-t');paint();};});
+  paint();
+}
+
+function renderAbgr(el){
+  el.innerHTML='<div class="slide">'+
+   '<div class="eyebrow">Dimensionen</div><h1>Abgrenzungen: Wohin gehört das Thema?</h1><div class="rule"></div>'+
+   '<p class="lead" style="margin:18px 0 14px;max-width:900px">Jedes Thema hat eine führende Dimension. Das vermeidet Doppelzählungen im Assessment.</p>'+
+   '<input class="search" id="q" type="search" placeholder="Thema oder Dimension suchen" aria-label="Thema suchen">'+
+   '<table class="tb"><thead><tr><th style="width:38%">Thema</th><th style="width:18%">Führende Dimension</th><th>Abgrenzung</th></tr></thead><tbody id="tb"></tbody></table>'+
+   '<div class="callout" style="margin-top:22px"><h3>Hinweis zur Skalierung</h3><p style="margin:0">Skalierung ist ein Querschnittsthema und wird bewusst aus drei Perspektiven bewertet — organisatorisch (Dimension 4), prozessual (Dimension 6) und technisch (Dimension 7). Für einzelne Dimensionen können sektorspezifische Anpassungen sinnvoll sein.</p></div></div>';
+  var tb=$('#tb',el);
+  function paint(){
+    var q=($('#q',el).value||'').toLowerCase().trim();
+    var rows=ABGR.filter(function(r){
+      if(!q)return true;
+      var hay=(r.t+' '+r.h+' '+r.d.map(function(n){return 'dimension '+n+' '+dimById(n).name;}).join(' ')).toLowerCase();
+      return hay.indexOf(q)>-1;
+    });
+    tb.innerHTML=rows.length?rows.map(function(r){
+      return '<tr><td><b>'+esc(r.t)+'</b></td><td><div class="tags">'+r.d.map(function(n){return '<button class="tag" type="button" data-d="'+n+'" title="'+esc(dimById(n).name)+'">'+n+' · '+esc(dimById(n).lines[0].replace(/ &$/,''))+'</button>';}).join('')+'</div></td><td>'+link(r.h)+'</td></tr>';
+    }).join(''):'<tr><td colspan="3">Kein Treffer.</td></tr>';
+  }
+  $('#q',el).addEventListener('input',paint);
+  paint();
+}
+
+function renderSkala(el){
+  el.innerHTML='<div class="slide">'+
+   '<div class="eyebrow">Reifegrad</div><h1>Fünfstufige Reifegradskala</h1><div class="rule"></div>'+
+   '<p class="lead" style="margin:18px 0 22px;max-width:900px">Die Leitfragen dienen der qualitativen Standortbestimmung je Dimension. Für eine konsistente Einstufung gilt über alle Dimensionen dieselbe benannte Skala.</p>'+
+   '<div class="stairs">'+LEVELS.map(function(n,i){
+     return '<div class="col" style="--i:'+i+'"><div class="bar lvbg lv'+i+'"><b>'+i+'</b><span>'+esc(n)+'</span></div><div class="coltext">'+esc(GENERIC[i])+'</div></div>';
+   }).join('')+'</div>'+
+   '<div style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap"><button class="btn" type="button" id="toMx">Skala je Dimension ansehen</button></div></div>';
+  $('#toMx',el).onclick=function(){go(cur+1);};
+}
+
+function renderMatrix(el){
+  el.innerHTML='<div class="slide">'+
+   '<div class="sh"><div class="grow"><div class="eyebrow">Reifegrad</div><h1>Reifegrad je Dimension</h1><div class="rule"></div></div>'+
+   '<button class="btn sec sm" type="button" id="mode"></button></div>'+
+   '<p class="note-s" style="margin:14px 0 8px">Klicke auf eine Zelle für die Beschreibung, auf den Dimensionsnamen für die Detailseite.</p>'+
+   '<div class="card mxdetail" id="mxd"></div><div class="mxwrap"><table class="mx" id="mx"></table></div></div>';
+  function paint(){
+    var t=$('#mx',el);t.className='mx'+(MX.full?' full':'');
+    var h='<thead><tr><th class="rh">Dimension</th>'+LEVELS.map(function(n,i){return '<th>Stufe '+i+'<br><span style="font-weight:400;color:var(--gd)">'+esc(n)+'</span></th>';}).join('')+'</tr></thead><tbody>';
+    DIMS.forEach(function(d){
+      h+='<tr><td><button class="rowbtn" type="button" data-d="'+d.id+'">'+d.id+' · '+esc(d.name)+'</button></td>';
+      d.stufen.forEach(function(s,i){
+        var pr=MX.sel&&MX.sel[0]===d.id&&MX.sel[1]===i;
+        h+='<td><button type="button" class="mxc lv'+i+'" data-d="'+d.id+'" data-l="'+i+'" aria-pressed="'+(!!pr)+'" title="'+esc(d.name+' – Stufe '+i)+'">'+(MX.full?esc(s):i)+'</button></td>';
+      });
+      h+='</tr>';
+    });
+    t.innerHTML=h+'</tbody>';
+    $('#mode',el).textContent=MX.full?'Kompaktansicht':'Volltext anzeigen';
+    var det=$('#mxd',el);
+    if(MX.sel){
+      var d=dimById(MX.sel[0]),l=MX.sel[1];
+      det.style.display='';
+      det.innerHTML='<div class="eyebrow">'+d.id+' · '+esc(d.name)+'</div><h3 style="margin-bottom:8px"><span class="lvbadge lvbg lv'+l+'" style="margin-right:10px">Stufe '+l+'</span>'+esc(LEVELS[l])+'</h3><p style="margin:0;font-size:1.05rem">'+esc(d.stufen[l])+'</p>';
+    }else{det.style.display=MX.full?'none':'';det.innerHTML='<p class="note-s" style="margin:0">Keine Zelle gewählt.</p>';}
+    $$('.mxc',t).forEach(function(b){b.onclick=function(){MX.sel=[+b.getAttribute('data-d'),+b.getAttribute('data-l')];paint();};});
+    $$('.rowbtn',t).forEach(function(b){b.onclick=function(){goDim(b.getAttribute('data-d'));};});
+  }
+  $('#mode',el).onclick=function(){MX.full=!MX.full;paint();};
+  paint();
+}
+
+/* ---- Standortbestimmung ---- */
+var LOGO_WHITE='data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDQyOS42IDE0MS44Ij4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiBub25lOwogICAgICB9CgogICAgICAuY2xzLTIgewogICAgICAgIGZpbGw6ICNmZmY7CiAgICAgIH0KCiAgICAgIC5jbHMtMyB7CiAgICAgICAgb3BhY2l0eTogLjg7CiAgICAgIH0KCiAgICAgIC5jbHMtNCB7CiAgICAgICAgb3BhY2l0eTogLjQ7CiAgICAgIH0KCiAgICAgIC5jbHMtNSB7CiAgICAgICAgb3BhY2l0eTogLjY7CiAgICAgIH0KCiAgICAgIC5jbHMtNiB7CiAgICAgICAgb3BhY2l0eTogLjI7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgPC9kZWZzPgogIDwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAyOC42LjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiAxLjIuMCBCdWlsZCA3MDkpICAtLT4KICA8Zz4KICAgIDxnIGlkPSJFYmVuZV8xIj4KICAgICAgPGcgaWQ9IkViZW5lXzIiPgogICAgICAgIDxnIGlkPSJFYmVuZV8yLTIiPgogICAgICAgICAgPHJlY3QgY2xhc3M9ImNscy0xIiB5PSIwIiB3aWR0aD0iNDI5LjYiIGhlaWdodD0iMTQxLjgiLz4KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTE2NC4yLDg2LjhsOS4yLTQxLjNoMTMuMmwtOS4yLDQxLjNoLTEzLjJaIi8+CiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yMTkuOCw2OC44YzAtMTMuNCwxMC43LTI0LjMsMjQuMS0yNC40LDAsMCwuMSwwLC4yLDAsMTQsMCwyMS4zLDguMywyMS4zLDE5LjEsMCwxMy4zLTEwLjcsMjQuMi0yNCwyNC4zLDAsMC0uMiwwLS4zLDAtMTMuOSwwLTIxLjMtOC4zLTIxLjMtMTlaTTI1Miw2NC4xYzAtNS0zLjItOC04LjMtOHMtMTAuNCw1LjgtMTAuNCwxMi4xLDMuMiw4LDguMyw4YzYuMiwwLDEwLjQtNS44LDEwLjQtMTIuMVoiLz4KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTI5NSw4Ni44bDUuMS0yMy4yYy4yLTEsLjQtMiwuNC0zLDAtMy4yLTIuNy00LjUtNS42LTQuNS0zLjQuMS02LjUsMS41LTguOCw0bC01LjksMjYuN2gtMTMuMWw5LjEtNDEuM2gxMy4ybC0xLjIsNWMzLjItMi45LDcuMy02LjEsMTMuNC02LjFzMTMuMyw0LjUsMTMuMywxMC43YzAsMS4xLS4yLDIuMy0uNCwzLjRsLTYuMiwyOC4zaC0xMy4yWiIvPgogICAgICAgICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMzE2LjQsODYuOGw5LjItNDEuM2gxMy4ybC05LjEsNDEuM2gtMTMuMloiLz4KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTM0MC44LDY4LjhjLS4xLTEzLjQsMTAuNi0yNC4zLDI0LTI0LjQuMiwwLC4zLDAsLjUsMCw5LDAsMTQuNywzLjcsMTcuNSw4LjRsLTkuOCw3LjRjLTEuNy0yLjctNC42LTQuMy03LjgtNC4yLTYuNSwwLTExLDUuMy0xMSwxMnM0LDguMSw5LDguMWMzLDAsNS44LTEuNCw3LjgtMy43bDcuMSw4LjZjLTQuMiw0LjQtMTAuMSw2LjgtMTYuMiw2LjctMTMsMC0yMS4xLTcuOS0yMS4xLTE5WiIvPgogICAgICAgICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMjEyLjYsNzUuNWMtLjguNC0xLjcuNy0yLjYuNy0yLjcsMC0zLjktMS40LTMuOS0zLjQsMC0uNi4xLTEuMy4zLTEuOWwzLjEtMTRoOC40bDIuNi0xMS40aC0yOC40bC0yLjYsMTEuNGg2LjhsLTQsMTguMmMtLjEsMS0uMiwyLS4zLDMsMCw2LjcsNS42LDkuOCwxMy43LDkuOCwxLjQsMCwyLjktLjIsNC4zLS41bDIuNy0xMS44WiIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIyMDcuOSIgY3k9IjM0LjIiIHI9IjcuOCIvPgogICAgICAgICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMjczLjQsMTEwLjR2LTEuNGgtNC42bC0uOCwxLjRoLTQuNGw3LjMtMTIuNGg0LjdsMS44LDEyLjNoLTRaTTI3Mi42LDEwMS43bC0yLjEsNGgyLjVsLS40LTRaIi8+CiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yODAuOSwxMTAuNGwyLjctMTIuNGg1LjRjMywwLDUuNSwyLjMsNS42LDUuMywwLDAsMCwwLDAsMCwwLDMuMS0yLDctOC4yLDdoLTUuNVpNMjg3LDEwNy4xYzEuOS4xLDMuNS0xLjMsMy43LTMuMiwwLS4xLDAtLjIsMC0uMywwLTEuMy0xLTIuMy0yLjItMi40LDAsMC0uMSwwLS4yLDBoLTEuN2wtMS4zLDUuOGgxLjdaIi8+CiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yOTkuOCwxMTAuNGwtMS44LTEyLjRoNC4xbC44LDguMyw0LjUtOC4zaDQuNGwtNy4zLDEyLjNoLTQuN1oiLz4KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMxMi41LDExMC40bDIuNy0xMi40aDMuOGwtMi43LDEyLjNoLTMuN1oiLz4KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMyMC43LDEwOC4ybDIuMi0yLjdjMS4xLDEuMiwyLjYsMS45LDQuMywxLjkuNywwLDEtLjMsMS0uNSwwLTEtNS45LTEtNS45LTQuNnMxLjgtNC40LDUuMy00LjRjMiwwLDMuOS43LDUuNCwyLjFsLTIuMiwyLjZjLTEtLjktMi40LTEuNS0zLjgtMS41LS41LDAtLjguMi0uOC41LDAsMSw1LjksMSw1LjksNC42cy0yLDQuNS01LjIsNC41Yy0yLjMuMS00LjYtLjgtNi4yLTIuNFoiLz4KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMzNS42LDEwNC45YzAtMy45LDMuMi03LjEsNy4yLTcuMSwwLDAsLjIsMCwuMywwLDMuNywwLDYuNCwyLjMsNi40LDUuNiwwLDQtMy4yLDcuMi03LjIsNy4yLDAsMC0uMiwwLS4yLDAtMy43LDAtNi40LTIuMy02LjQtNS43Wk0zNDUuNiwxMDMuN2MwLTEuNC0xLjEtMi42LTIuNS0yLjYsMCwwLS4yLDAtLjIsMC0xLjksMC0zLjQsMS42LTMuMywzLjUsMCwwLDAsMCwwLDAsMCwxLjQsMS4xLDIuNiwyLjUsMi42LDAsMCwuMiwwLC4yLDAsMS45LDAsMy40LTEuNiwzLjMtMy41LDAsMCwwLDAsMCwwaDBaIi8+CiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0zNTkuMSwxMTAuNGwtLjktMy45aC0xLjVsLS45LDMuOWgtMy43bDIuNy0xMi40aDZjMi4xLS4yLDQsMS40LDQuMSwzLjYsMCwwLDAsLjEsMCwuMiwwLDItMS4yLDMuNy0zLDQuNGwxLjIsNC4yaC00LjFaTTM1OS43LDEwMy4yYy44LDAsMS40LS4zLDEuNC0xLDAtLjUtLjUtLjktMS0uOWgtMi4ybC0uNCwxLjloMi4zLDBaIi8+CiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0zNjcuMSwxMDguMmwyLjItMi43YzEuMSwxLjIsMi42LDEuOSw0LjMsMS45LjcsMCwxLS4zLDEtLjUsMC0xLTUuOS0xLTUuOS00LjZzMS44LTQuNCw1LjMtNC40YzIsMCwzLjkuNyw1LjQsMi4xbC0yLjIsMi42Yy0xLS45LTIuNC0xLjUtMy44LTEuNS0uNSwwLS44LjItLjguNSwwLDEsNS45LDEsNS45LDQuNnMtMiw0LjUtNS4yLDQuNWMtMi4zLjEtNC42LS44LTYuMi0yLjRaIi8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9Ijk3LjIiIGN5PSI2MS4yIiByPSI0LjIiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iOTUuMSIgY3k9IjcwLjkiIHI9IjQuMiIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI5Mi45IiBjeT0iODAuNiIgcj0iNC4yIi8+CiAgICAgICAgICA8ZyBjbGFzcz0iY2xzLTMiPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9Ijk5LjQiIGN5PSI1MS40IiByPSIyLjUiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI4OS43IiBjeT0iNTEuNCIgcj0iMi41Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTA5LjEiIGN5PSI1MS40IiByPSIyLjUiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI4Ny41IiBjeT0iNjEuMiIgcj0iMi41Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iODUuNCIgY3k9IjcwLjkiIHI9IjIuNSIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjgzLjIiIGN5PSI4MC42IiByPSIyLjUiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI4MS4xIiBjeT0iOTAuMyIgcj0iMi41Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iOTAuOCIgY3k9IjkwLjMiIHI9IjIuNSIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEwMC41IiBjeT0iOTAuMyIgcj0iMi41Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTAyLjciIGN5PSI4MC42IiByPSIyLjUiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMDQuOCIgY3k9IjcwLjkiIHI9IjIuNSIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEwNyIgY3k9IjYxLjIiIHI9IjIuNSIvPgogICAgICAgICAgPC9nPgogICAgICAgICAgPGcgY2xhc3M9ImNscy02Ij4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI2NC44IiBjeT0iMzIiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNzQuNiIgY3k9IjMyIiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9Ijg0LjMiIGN5PSIzMiIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI5NCIgY3k9IjMyIiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEwMy43IiBjeT0iMzIiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTEzLjQiIGN5PSIzMiIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMjMuMSIgY3k9IjMyIiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEzMi45IiBjeT0iMzIiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTQyLjYiIGN5PSIzMiIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxNDAuNCIgY3k9IjQxLjciIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTM4LjMiIGN5PSI1MS40IiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEzNi4xIiBjeT0iNjEuMiIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMzMuOSIgY3k9IjcwLjkiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTMxLjgiIGN5PSI4MC42IiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEyOS42IiBjeT0iOTAuMyIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMjcuNSIgY3k9IjEwMCIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMjUuMyIgY3k9IjEwOS44IiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjExNS42IiBjeT0iMTA5LjgiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTA1LjkiIGN5PSIxMDkuOCIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI5Ni4yIiBjeT0iMTA5LjgiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iODYuNSIgY3k9IjEwOS44IiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9Ijc2LjgiIGN5PSIxMDkuOCIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI2NyIgY3k9IjEwOS44IiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjU3LjMiIGN5PSIxMDkuOCIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI0Ny42IiBjeT0iMTA5LjgiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNDkuOCIgY3k9IjEwMCIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI1OS41IiBjeT0iMTAwIiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjY5LjIiIGN5PSIxMDAiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNjEuNiIgY3k9IjkwLjMiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNTEuOSIgY3k9IjkwLjMiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNTQuMSIgY3k9IjgwLjYiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNTYuMiIgY3k9IjcwLjkiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNTguNCIgY3k9IjYxLjIiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNjAuNSIgY3k9IjUxLjQiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNzAuMiIgY3k9IjUxLjQiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNzIuNCIgY3k9IjQxLjciIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iODIuMSIgY3k9IjQxLjciIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNjIuNyIgY3k9IjQxLjciIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTE3LjgiIGN5PSIxMDAiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTA4LjEiIGN5PSIxMDAiIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTE5LjkiIGN5PSI5MC4zIiByPSIuOCIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEyOC42IiBjeT0iNTEuNCIgcj0iLjgiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMzAuNyIgY3k9IjQxLjciIHI9Ii44Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTIxIiBjeT0iNDEuNyIgcj0iLjgiLz4KICAgICAgICAgIDwvZz4KICAgICAgICAgIDxnIGNsYXNzPSJjbHMtNSI+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNzcuOCIgY3k9IjYxLjIiIHI9IjEuNyIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9Ijc1LjciIGN5PSI3MC45IiByPSIxLjciLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI3My41IiBjeT0iODAuNiIgcj0iMS43Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTEyLjQiIGN5PSI4MC42IiByPSIxLjciLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMTQuNSIgY3k9IjcwLjkiIHI9IjEuNyIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjExNi43IiBjeT0iNjEuMiIgcj0iMS43Ii8+CiAgICAgICAgICA8L2c+CiAgICAgICAgICA8ZyBjbGFzcz0iY2xzLTQiPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEwMS42IiBjeT0iNDEuNyIgcj0iMS43Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iOTEuOCIgY3k9IjQxLjciIHI9IjEuNyIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjExMS4zIiBjeT0iNDEuNyIgcj0iMS43Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iODAiIGN5PSI1MS40IiByPSIxLjciLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI3MS4zIiBjeT0iOTAuMyIgcj0iMS43Ii8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTEwLjIiIGN5PSI5MC4zIiByPSIxLjciLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI3OC45IiBjeT0iMTAwIiByPSIxLjciLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI4OC42IiBjeT0iMTAwIiByPSIxLjciLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI5OC4zIiBjeT0iMTAwIiByPSIxLjciLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMjYuNCIgY3k9IjYxLjIiIHI9IjEuMiIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjY4LjEiIGN5PSI2MS4yIiByPSIxLjIiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI2NS45IiBjeT0iNzAuOSIgcj0iMS4yIi8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iNjMuOCIgY3k9IjgwLjYiIHI9IjEuMiIvPgogICAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEyNC4yIiBjeT0iNzAuOSIgcj0iMS4yIi8+CiAgICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iMTIyLjEiIGN5PSI4MC42IiByPSIxLjIiLz4KICAgICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMTguOCIgY3k9IjUxLjQiIHI9IjEuNyIvPgogICAgICAgICAgPC9nPgogICAgICAgIDwvZz4KICAgICAgPC9nPgogICAgPC9nPgogIDwvZz4KPC9zdmc+';
+var LOGO_RGB='data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDQyOS42IDE0MS44Ij4KICA8ZGVmcz4KICAgIDxzdHlsZT4KICAgICAgLmNscy0xIHsKICAgICAgICBmaWxsOiBub25lOwogICAgICB9CgogICAgICAuY2xzLTIgewogICAgICAgIGZpbGw6ICMwZjc0OTI7CiAgICAgIH0KCiAgICAgIC5jbHMtMyB7CiAgICAgICAgZmlsbDogIzJkYjRkMjsKICAgICAgfQoKICAgICAgLmNscy00IHsKICAgICAgICBmaWxsOiAjMjM5ZmJkOwogICAgICB9CgogICAgICAuY2xzLTUgewogICAgICAgIGZpbGw6ICMxOThhYTg7CiAgICAgIH0KCiAgICAgIC5jbHMtNiB7CiAgICAgICAgZmlsbDogIzA1NWY3ZDsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDI4LjYuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDEuMi4wIEJ1aWxkIDcwOSkgIC0tPgogIDxnPgogICAgPGcgaWQ9IkViZW5lXzEiPgogICAgICA8ZyBpZD0iRWJlbmVfMiI+CiAgICAgICAgPGcgaWQ9IkViZW5lXzItMiI+CiAgICAgICAgICA8cmVjdCBjbGFzcz0iY2xzLTEiIHk9IjAiIHdpZHRoPSI0MjkuNiIgaGVpZ2h0PSIxNDEuOCIvPgogICAgICAgICAgPHBhdGggY2xhc3M9ImNscy02IiBkPSJNMTY0LjIsODYuOGw5LjItNDEuM2gxMy4ybC05LjIsNDEuM2gtMTMuMloiLz4KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtNiIgZD0iTTIxOS44LDY4LjhjMC0xMy40LDEwLjctMjQuMywyNC4xLTI0LjQsMCwwLC4xLDAsLjIsMCwxNCwwLDIxLjMsOC4zLDIxLjMsMTkuMSwwLDEzLjMtMTAuNywyNC4yLTI0LDI0LjMsMCwwLS4yLDAtLjMsMC0xMy45LDAtMjEuMy04LjMtMjEuMy0xOVpNMjUyLDY0LjFjMC01LTMuMi04LTguMy04cy0xMC40LDUuOC0xMC40LDEyLjEsMy4yLDgsOC4zLDhjNi4yLDAsMTAuNC01LjgsMTAuNC0xMi4xWiIvPgogICAgICAgICAgPHBhdGggY2xhc3M9ImNscy02IiBkPSJNMjk1LDg2LjhsNS4xLTIzLjJjLjItMSwuNC0yLC40LTMsMC0zLjItMi43LTQuNS01LjYtNC41LTMuNC4xLTYuNSwxLjUtOC44LDRsLTUuOSwyNi43aC0xMy4xbDkuMS00MS4zaDEzLjJsLTEuMiw1YzMuMi0yLjksNy4zLTYuMSwxMy40LTYuMXMxMy4zLDQuNSwxMy4zLDEwLjdjMCwxLjEtLjIsMi4zLS40LDMuNGwtNi4yLDI4LjNoLTEzLjJaIi8+CiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTYiIGQ9Ik0zMTYuNCw4Ni44bDkuMi00MS4zaDEzLjJsLTkuMSw0MS4zaC0xMy4yWiIvPgogICAgICAgICAgPHBhdGggY2xhc3M9ImNscy02IiBkPSJNMzQwLjgsNjguOGMtLjEtMTMuNCwxMC42LTI0LjMsMjQtMjQuNC4yLDAsLjMsMCwuNSwwLDksMCwxNC43LDMuNywxNy41LDguNGwtOS44LDcuNGMtMS43LTIuNy00LjYtNC4zLTcuOC00LjItNi41LDAtMTEsNS4zLTExLDEyczQsOC4xLDksOC4xYzMsMCw1LjgtMS40LDcuOC0zLjdsNy4xLDguNmMtNC4yLDQuNC0xMC4xLDYuOC0xNi4yLDYuNy0xMywwLTIxLjEtNy45LTIxLjEtMTlaIi8+CiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTYiIGQ9Ik0yMTIuNiw3NS41Yy0uOC40LTEuNy43LTIuNi43LTIuNywwLTMuOS0xLjQtMy45LTMuNCwwLS42LjEtMS4zLjMtMS45bDMuMS0xNGg4LjRsMi42LTExLjRoLTI4LjRsLTIuNiwxMS40aDYuOGwtNCwxOC4yYy0uMSwxLS4yLDItLjMsMywwLDYuNyw1LjYsOS44LDEzLjcsOS44LDEuNCwwLDIuOS0uMiw0LjMtLjVsMi43LTExLjhaIi8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtNiIgY3g9IjIwNy45IiBjeT0iMzQuMiIgcj0iNy44Ii8+CiAgICAgICAgICA8cGF0aCBjbGFzcz0iY2xzLTMiIGQ9Ik0yNzIuNCwxMTAuNHYtMS40aC00LjZsLS44LDEuNGgtNC40bDcuMy0xMi40aDQuN2wxLjgsMTIuM2gtNFpNMjcxLjYsMTAxLjdsLTIuMSw0aDIuNWwtLjQtNFoiLz4KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMyIgZD0iTTI3OS45LDExMC40bDIuNy0xMi40aDUuNGMzLDAsNS41LDIuMyw1LjYsNS4zLDAsMCwwLDAsMCwwLDAsMy4xLTIsNy04LjIsN2gtNS41Wk0yODYsMTA3LjFjMS45LjEsMy41LTEuMywzLjctMy4yLDAtLjEsMC0uMiwwLS4zLDAtMS4zLTEtMi4zLTIuMi0yLjQsMCwwLS4xLDAtLjIsMGgtMS43bC0xLjMsNS44aDEuN1oiLz4KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMyIgZD0iTTI5OC44LDExMC40bC0xLjgtMTIuNGg0LjFsLjgsOC4zLDQuNS04LjNoNC40bC03LjMsMTIuM2gtNC43WiIvPgogICAgICAgICAgPHBhdGggY2xhc3M9ImNscy0zIiBkPSJNMzExLjUsMTEwLjRsMi43LTEyLjRoMy44bC0yLjcsMTIuM2gtMy43WiIvPgogICAgICAgICAgPHBhdGggY2xhc3M9ImNscy0zIiBkPSJNMzE5LjcsMTA4LjJsMi4yLTIuN2MxLjEsMS4yLDIuNiwxLjksNC4zLDEuOS43LDAsMS0uMywxLS41LDAtMS01LjktMS01LjktNC42czEuOC00LjQsNS4zLTQuNGMyLDAsMy45LjcsNS40LDIuMWwtMi4yLDIuNmMtMS0uOS0yLjQtMS41LTMuOC0xLjUtLjUsMC0uOC4yLS44LjUsMCwxLDUuOSwxLDUuOSw0LjZzLTIsNC41LTUuMiw0LjVjLTIuMy4xLTQuNi0uOC02LjItMi40WiIvPgogICAgICAgICAgPHBhdGggY2xhc3M9ImNscy0zIiBkPSJNMzM0LjYsMTA0LjljMC0zLjksMy4yLTcuMSw3LjItNy4xLDAsMCwuMiwwLC4zLDAsMy43LDAsNi40LDIuMyw2LjQsNS42LDAsNC0zLjIsNy4yLTcuMiw3LjIsMCwwLS4yLDAtLjIsMC0zLjcsMC02LjQtMi4zLTYuNC01LjdaTTM0NC42LDEwMy43YzAtMS40LTEuMS0yLjYtMi41LTIuNiwwLDAtLjIsMC0uMiwwLTEuOSwwLTMuNCwxLjYtMy4zLDMuNSwwLDAsMCwwLDAsMCwwLDEuNCwxLjEsMi42LDIuNSwyLjYsMCwwLC4yLDAsLjIsMCwxLjksMCwzLjQtMS42LDMuMy0zLjUsMCwwLDAsMCwwLDBoMFoiLz4KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMyIgZD0iTTM1OC4xLDExMC40bC0uOS0zLjloLTEuNWwtLjksMy45aC0zLjdsMi43LTEyLjRoNmMyLjEtLjIsNCwxLjQsNC4xLDMuNiwwLDAsMCwuMSwwLC4yLDAsMi0xLjIsMy43LTMsNC40bDEuMiw0LjJoLTQuMVpNMzU4LjcsMTAzLjJjLjgsMCwxLjQtLjMsMS40LTEsMC0uNS0uNS0uOS0xLS45aC0yLjJsLS40LDEuOWgyLjMsMFoiLz4KICAgICAgICAgIDxwYXRoIGNsYXNzPSJjbHMtMyIgZD0iTTM2Ni4xLDEwOC4ybDIuMi0yLjdjMS4xLDEuMiwyLjYsMS45LDQuMywxLjkuNywwLDEtLjMsMS0uNSwwLTEtNS45LTEtNS45LTQuNnMxLjgtNC40LDUuMy00LjRjMiwwLDMuOS43LDUuNCwyLjFsLTIuMiwyLjZjLTEtLjktMi40LTEuNS0zLjgtMS41LS41LDAtLjguMi0uOC41LDAsMSw1LjksMSw1LjksNC42cy0yLDQuNS01LjIsNC41Yy0yLjMuMS00LjYtLjgtNi4yLTIuNFoiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy02IiBjeD0iOTcuMiIgY3k9IjYxLjIiIHI9IjQuMiIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTYiIGN4PSI5NS4xIiBjeT0iNzAuOSIgcj0iNC4yIi8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtNiIgY3g9IjkyLjkiIGN5PSI4MC42IiByPSI0LjIiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iOTkuNCIgY3k9IjUxLjQiIHI9IjIuNSIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI4OS43IiBjeT0iNTEuNCIgcj0iMi41Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjEwOS4xIiBjeT0iNTEuNCIgcj0iMi41Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9Ijg3LjUiIGN5PSI2MS4yIiByPSIyLjUiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iODUuNCIgY3k9IjcwLjkiIHI9IjIuNSIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSI4My4yIiBjeT0iODAuNiIgcj0iMi41Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMiIgY3g9IjgxLjEiIGN5PSI5MC4zIiByPSIyLjUiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0yIiBjeD0iOTAuOCIgY3k9IjkwLjMiIHI9IjIuNSIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMDAuNSIgY3k9IjkwLjMiIHI9IjIuNSIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMDIuNyIgY3k9IjgwLjYiIHI9IjIuNSIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMDQuOCIgY3k9IjcwLjkiIHI9IjIuNSIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTIiIGN4PSIxMDciIGN5PSI2MS4yIiByPSIyLjUiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iNjQuOCIgY3k9IjMyIiByPSIuOCIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSI3NC42IiBjeT0iMzIiIHI9Ii44Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9Ijg0LjMiIGN5PSIzMiIgcj0iLjgiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iOTQiIGN5PSIzMiIgcj0iLjgiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iMTAzLjciIGN5PSIzMiIgcj0iLjgiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iMTEzLjQiIGN5PSIzMiIgcj0iLjgiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iMTIzLjEiIGN5PSIzMiIgcj0iLjgiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iMTMyLjkiIGN5PSIzMiIgcj0iLjgiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iMTQyLjYiIGN5PSIzMiIgcj0iLjgiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iMTQwLjQiIGN5PSI0MS43IiByPSIuOCIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSIxMzguMyIgY3k9IjUxLjQiIHI9Ii44Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9IjEzNi4xIiBjeT0iNjEuMiIgcj0iLjgiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iMTMzLjkiIGN5PSI3MC45IiByPSIuOCIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSIxMzEuOCIgY3k9IjgwLjYiIHI9Ii44Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9IjEyOS42IiBjeT0iOTAuMyIgcj0iLjgiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iMTI3LjUiIGN5PSIxMDAiIHI9Ii44Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9IjEyNS4zIiBjeT0iMTA5LjgiIHI9Ii44Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9IjExNS42IiBjeT0iMTA5LjgiIHI9Ii44Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9IjEwNS45IiBjeT0iMTA5LjgiIHI9Ii44Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9Ijk2LjIiIGN5PSIxMDkuOCIgcj0iLjgiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iODYuNSIgY3k9IjEwOS44IiByPSIuOCIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSI3Ni44IiBjeT0iMTA5LjgiIHI9Ii44Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9IjY3IiBjeT0iMTA5LjgiIHI9Ii44Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9IjU3LjMiIGN5PSIxMDkuOCIgcj0iLjgiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iNDcuNiIgY3k9IjEwOS44IiByPSIuOCIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSI0OS44IiBjeT0iMTAwIiByPSIuOCIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSI1OS41IiBjeT0iMTAwIiByPSIuOCIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSI2OS4yIiBjeT0iMTAwIiByPSIuOCIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSI2MS42IiBjeT0iOTAuMyIgcj0iLjgiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iNTEuOSIgY3k9IjkwLjMiIHI9Ii44Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9IjU0LjEiIGN5PSI4MC42IiByPSIuOCIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSI1Ni4yIiBjeT0iNzAuOSIgcj0iLjgiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iNTguNCIgY3k9IjYxLjIiIHI9Ii44Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9IjYwLjUiIGN5PSI1MS40IiByPSIuOCIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSI3MC4yIiBjeT0iNTEuNCIgcj0iLjgiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iNzIuNCIgY3k9IjQxLjciIHI9Ii44Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9IjgyLjEiIGN5PSI0MS43IiByPSIuOCIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSI2Mi43IiBjeT0iNDEuNyIgcj0iLjgiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iMTE3LjgiIGN5PSIxMDAiIHI9Ii44Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9IjEwOC4xIiBjeT0iMTAwIiByPSIuOCIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSIxMTkuOSIgY3k9IjkwLjMiIHI9Ii44Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtMyIgY3g9IjEyOC42IiBjeT0iNTEuNCIgcj0iLjgiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy0zIiBjeD0iMTMwLjciIGN5PSI0MS43IiByPSIuOCIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTMiIGN4PSIxMjEiIGN5PSI0MS43IiByPSIuOCIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTUiIGN4PSI3Ny44IiBjeT0iNjEuMiIgcj0iMS43Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtNSIgY3g9Ijc1LjciIGN5PSI3MC45IiByPSIxLjciLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy01IiBjeD0iNzMuNSIgY3k9IjgwLjYiIHI9IjEuNyIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTUiIGN4PSIxMTIuNCIgY3k9IjgwLjYiIHI9IjEuNyIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTUiIGN4PSIxMTQuNSIgY3k9IjcwLjkiIHI9IjEuNyIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTUiIGN4PSIxMTYuNyIgY3k9IjYxLjIiIHI9IjEuNyIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSIxMDEuNiIgY3k9IjQxLjciIHI9IjEuNyIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSI5MS44IiBjeT0iNDEuNyIgcj0iMS43Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9IjExMS4zIiBjeT0iNDEuNyIgcj0iMS43Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9IjgwIiBjeT0iNTEuNCIgcj0iMS43Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9IjcxLjMiIGN5PSI5MC4zIiByPSIxLjciLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iMTEwLjIiIGN5PSI5MC4zIiByPSIxLjciLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iNzguOSIgY3k9IjEwMCIgcj0iMS43Ii8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9Ijg4LjYiIGN5PSIxMDAiIHI9IjEuNyIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSI5OC4zIiBjeT0iMTAwIiByPSIxLjciLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iMTI2LjQiIGN5PSI2MS4yIiByPSIxLjIiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iNjguMSIgY3k9IjYxLjIiIHI9IjEuMiIvPgogICAgICAgICAgPGNpcmNsZSBjbGFzcz0iY2xzLTQiIGN4PSI2NS45IiBjeT0iNzAuOSIgcj0iMS4yIi8+CiAgICAgICAgICA8Y2lyY2xlIGNsYXNzPSJjbHMtNCIgY3g9IjYzLjgiIGN5PSI4MC42IiByPSIxLjIiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iMTI0LjIiIGN5PSI3MC45IiByPSIxLjIiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iMTIyLjEiIGN5PSI4MC42IiByPSIxLjIiLz4KICAgICAgICAgIDxjaXJjbGUgY2xhc3M9ImNscy00IiBjeD0iMTE4LjgiIGN5PSI1MS40IiByPSIxLjciLz4KICAgICAgICA8L2c+CiAgICAgIDwvZz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPg==';
+function radarSvg(){
+  var W=600,H=470,cx=300,cy=235,R=150,out='<svg class="radar" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Radardiagramm Ist und Soll je Dimension">';
+  function pt(i,v){var a=(-90+45*i)*Math.PI/180,r=R*v/4;return [cx+r*Math.cos(a),cy+r*Math.sin(a)];}
+  for(var l=1;l<=4;l++){
+    var pts=DIMS.map(function(d,i){return pt(i,l).map(function(x){return x.toFixed(1);}).join(',');}).join(' ');
+    out+='<polygon points="'+pts+'" fill="'+(l%2?'#F4F4F4':'#fff')+'" stroke="#C4C7CB" stroke-width="1"/>';
+  }
+  DIMS.forEach(function(d,i){var p=pt(i,4);out+='<line x1="'+cx+'" y1="'+cy+'" x2="'+p[0].toFixed(1)+'" y2="'+p[1].toFixed(1)+'" stroke="#C4C7CB"/>';});
+  for(var k=1;k<=4;k++){out+='<text x="'+(cx+5)+'" y="'+(cy-R*k/4-2)+'" font-size="11" fill="#7F7F7F">'+k+'</text>';}
+  function poly(map,stroke,fill,dash){
+    var any=DIMS.some(function(d){return map[d.id]!=null;});
+    if(!any)return '';
+    var pts=DIMS.map(function(d,i){return pt(i,map[d.id]==null?0:map[d.id]).map(function(x){return x.toFixed(1);}).join(',');}).join(' ');
+    var s='<polygon points="'+pts+'" fill="'+fill+'" stroke="'+stroke+'" stroke-width="3" stroke-linejoin="round"'+(dash?' stroke-dasharray="8 6"':'')+'/>';
+    DIMS.forEach(function(d,i){if(map[d.id]!=null){var p=pt(i,map[d.id]);s+='<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="5" fill="'+stroke+'" stroke="#fff" stroke-width="2"/>';}});
+    return s;
+  }
+  out+=poly(A.ist,'#077FA9','rgba(45,180,210,.30)',false);
+  out+=poly(A.soll,'#53585F','none',true);
+  DIMS.forEach(function(d,i){
+    var a=(-90+45*i)*Math.PI/180,x=cx+(R+26)*Math.cos(a),y=cy+(R+26)*Math.sin(a),s=Math.sin(a),c=Math.cos(a);
+    var anchor=c>0.3?'start':(c<-0.3?'end':'middle'),lh=15,n=2;
+    var y0=s<-0.3?y-lh*(n-1):(s>0.3?y+8:y-lh*(n-1)/2+4);
+    out+='<text text-anchor="'+anchor+'" font-size="13" font-weight="700" fill="'+(FOCUS===d.id?'#055F7D':'#53585F')+'" style="cursor:pointer" data-d="'+d.id+'">'+
+      '<tspan x="'+x.toFixed(1)+'" y="'+y0.toFixed(1)+'">'+d.id+' · '+esc(d.lines[0])+'</tspan><tspan x="'+x.toFixed(1)+'" y="'+(y0+lh).toFixed(1)+'">'+esc(d.lines[1])+'</tspan></text>';
+  });
+  return out+'</svg>';
+}
+function avg(map){var v=DIMS.map(function(d){return map[d.id];}).filter(function(x){return x!=null;});return v.length?v.reduce(function(a,b){return a+b;},0)/v.length:null;}
+function resultText(){
+  var rows=DIMS.map(function(d){
+    var i=A.ist[d.id],s=A.soll[d.id],g=(i!=null&&s!=null)?(s-i):null;
+    return '| '+d.id+' '+d.name+' | '+(i==null?'–':i)+' | '+(s==null?'–':s)+' | '+(g==null?'–':g)+' | '+((A.note[d.id]||'').replace(/\|/g,'/').replace(/\n/g,' '))+' |';
+  });
+  var ai=avg(A.ist),as=avg(A.soll);
+  return '# KI-Reifegrad: Standortbestimmung'+(A.name?' – '+A.name:'')+'\n\nSkala: 0 nicht vorhanden · 1 initial · 2 definiert · 3 etabliert · 4 skaliert/optimiert\n\n| Dimension | Ist | Soll | Lücke | Notiz |\n| --- | --- | --- | --- | --- |\n'+rows.join('\n')+'\n\nØ Ist: '+(ai==null?'–':de(ai))+' · Ø Soll: '+(as==null?'–':de(as))+'\n'+
+    '\n## Verwendete Leitfragen\n'+DIMS.map(function(d){
+      var aq=activeQ(d);
+      return '\n### '+d.id+' '+d.name+'\n'+(aq.length?aq.map(function(q){return '- '+q.text.replace(/\n/g,' ');}).join('\n'):'- keine Leitfrage aktiv')+'\n';
+    }).join('');
+}
+function renderAssess(el){
+  var cards=DIMS.map(function(d){
+    function col(k,label){
+      return '<div class="acol '+k+'"><div class="lbl">'+label+'</div><div class="lvs" role="group" aria-label="'+label+' '+esc(d.name)+'">'+
+        [0,1,2,3,4].map(function(v){return '<button type="button" data-d="'+d.id+'" data-k="'+k+'" data-v="'+v+'" title="Stufe '+v+': '+esc(LEVELS[v])+'" aria-pressed="false">'+v+'</button>';}).join('')+
+        '</div><div class="expl empty" data-expl="'+k+'" data-d="'+d.id+'"></div></div>';
+    }
+    return '<div class="acard" id="ac'+d.id+'" data-row="'+d.id+'"><h3><i>'+d.id+'</i>'+esc(d.name)+'</h3>'+
+      '<div class="acols">'+col('ist','Ist')+col('soll','Soll')+'</div>'+
+      '<details><summary>Leitfragen und Notiz</summary><ul class="qlist" data-ql="'+d.id+'" style="margin:8px 0 6px;padding-left:20px">'+(activeQ(d).map(function(q){return '<li style="margin-bottom:6px;font-size:.92rem">'+esc(q.text)+'</li>';}).join('')||'<li class="note-s" style="list-style:none;margin-left:-20px">Keine Leitfrage aktiv.</li>')+'</ul>'+
+      '<p style="margin:0 0 10px"><button type="button" class="btn sec sm" data-sel="'+d.id+'">Auswahl ändern</button></p>'+
+      '<textarea class="note" data-note="'+d.id+'" rows="2" aria-label="Notiz zu '+esc(d.name)+'"></textarea></details></div>';
+  }).join('');
+  el.innerHTML='<div class="slide">'+
+   '<div class="sh"><div class="grow"><div class="eyebrow">Standortbestimmung</div><h1>Standortbestimmung erstellen</h1><div class="rule"></div></div><button class="btn sec sm" type="button" id="reset">Zurücksetzen</button></div>'+
+   '<p class="note-s" style="margin:14px 0 0">Wähle je Dimension die Stufe für Ist und Soll. Die Erläuterung der gewählten Stufe erscheint direkt darunter. Erneutes Anklicken löscht die Auswahl. Mit „Speichern“ sicherst Du den Stand als Datei, mit „Öffnen“ lädst Du ihn später zur Bearbeitung wieder. Mit „Als PDF speichern“ erzeugst Du einen Ergebnisbericht im itonic-Layout (im Druckdialog „Als PDF speichern“ wählen).</p>'+
+   '<div class="savebar"><label for="aname" class="note-s" style="flex:none">Bezeichnung</label><input type="text" id="aname" maxlength="120" placeholder="z. B. Organisation und Datum" autocomplete="off">'+
+   '<button class="btn sm" type="button" id="fsave">Speichern (Datei)</button><button class="btn sec sm" type="button" id="fopenb">Öffnen (Datei)</button><button class="btn sec sm" type="button" id="fpdf">Als PDF speichern</button><label class="note-s" style="flex:none;display:flex;gap:6px;align-items:center"><input type="checkbox" id="fpdfq" checked>Anhang Leitfragen</label><input type="file" id="fopen" accept=".json,application/json,text/plain" style="display:none">'+
+   '<div class="savemsg" id="smsg" role="status"></div><div class="note-s" id="qcount" style="flex-basis:100%"></div>'+
+   '<details class="txt"><summary>Alternativ als Text sichern oder laden</summary><p class="note-s" style="margin:6px 0 0">Falls der Datei-Download in Deiner Umgebung nicht startet: Text erzeugen, kopieren und separat ablegen. Zum Laden den Text hier einfügen.</p><textarea id="jtxt" aria-label="Standortbestimmung als Text"></textarea><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px"><button class="btn sec sm" type="button" id="tgen">Aktuellen Stand als Text</button><button class="btn sec sm" type="button" id="tcopy">Kopieren</button><button class="btn sm" type="button" id="tload">Aus Text laden</button></div></details></div>'+
+   '<div class="assess"><div><div class="scale"><b>Skala:</b> 0 nicht vorhanden · 1 initial · 2 definiert · 3 etabliert · 4 skaliert/optimiert</div>'+cards+'</div>'+
+   '<div class="aside"><div id="radar"></div><div class="leg"><span>Ist</span><span class="s">Soll</span></div>'+
+   '<div class="kpis" id="kpis"></div><h3 style="margin:6px 0 6px">Größte Lücken (Soll minus Ist)</h3><div id="gaps"></div>'+
+   '<details class="res" style="margin-top:14px"><summary>Ergebnis als Text (Markdown)</summary><textarea class="res" id="res" readonly></textarea><div style="margin-top:8px;display:flex;gap:10px;align-items:center"><button class="btn sm" type="button" id="copy">Kopieren</button><span class="note-s" id="copied"></span></div></details>'+
+   '</div></div></div>';
+  var root=$('.slide',el);
+  $('#aname',root).value=A.name||'';
+  $$('textarea[data-note]',root).forEach(function(t){t.value=A.note[t.getAttribute('data-note')]||'';});
+  function upd(){
+    $$('.lvs button',root).forEach(function(b){
+      b.setAttribute('aria-pressed',String(A[b.getAttribute('data-k')][b.getAttribute('data-d')]===+b.getAttribute('data-v')));
+    });
+    $$('.expl',root).forEach(function(x){
+      var d=+x.getAttribute('data-d'),k=x.getAttribute('data-expl'),v=A[k][d];
+      if(v==null){x.className='expl empty';x.textContent='Stufe wählen, die Erläuterung erscheint hier.';}
+      else{x.className='expl';x.innerHTML='<b>Stufe '+v+' · '+esc(LEVELS[v])+'</b>'+esc(dimById(d).stufen[v]);}
+    });
+    $$('.acard',root).forEach(function(c){c.classList.toggle('focus',+c.getAttribute('data-row')===FOCUS);});
+    $$('ul.qlist',root).forEach(function(u){
+      var aq=activeQ(dimById(+u.getAttribute('data-ql')));
+      u.innerHTML=aq.map(function(q){return '<li style="margin-bottom:6px;font-size:.92rem">'+esc(q.text)+'</li>';}).join('')||'<li class="note-s" style="list-style:none;margin-left:-20px">Keine Leitfrage aktiv.</li>';
+    });
+    var qc=countQ();$('#qcount',root).textContent=qc.a+' von '+qc.t+' Leitfragen aktiv. Auswahl je Dimension unter „Auswahl ändern“.';
+    $('#radar',root).innerHTML=radarSvg();
+    var ai=avg(A.ist),as=avg(A.soll),n=Object.keys(A.ist).filter(function(k){return A.ist[k]!=null;}).length;
+    $('#kpis',root).innerHTML='<div class="kpi"><small>Ø Ist</small><b>'+(ai==null?'–':de(ai))+'</b></div><div class="kpi"><small>Ø Soll</small><b>'+(as==null?'–':de(as))+'</b></div><div class="kpi"><small>Ist bewertet</small><b>'+n+' / 8</b></div>';
+    var gaps=DIMS.filter(function(d){return A.ist[d.id]!=null&&A.soll[d.id]!=null&&A.soll[d.id]>A.ist[d.id];}).map(function(d){return {d:d,g:A.soll[d.id]-A.ist[d.id]};}).sort(function(a,b){return b.g-a.g;}).slice(0,3);
+    $('#gaps',root).innerHTML=gaps.length?gaps.map(function(x){return '<div class="gap"><span>'+x.d.id+' · '+esc(x.d.name)+'</span><span class="t"><i style="width:'+(x.g*25)+'%"></i></span><b>+'+x.g+'</b></div>';}).join(''):'<p class="note-s" style="margin:0">Sobald Ist und Soll gesetzt sind, erscheinen hier die größten Lücken.</p>';
+    $('#res',root).value=resultText();
+    $$('#radar text[data-d]',root).forEach(function(t){t.onclick=function(){
+      FOCUS=+t.getAttribute('data-d');upd();
+      try{var c=$('#ac'+FOCUS,root);if(c&&c.scrollIntoView)c.scrollIntoView({behavior:'smooth',block:'start'});}catch(e){}
+    };});
+  }
+  root.addEventListener('click',function(e){
+    var sb=e.target.closest?e.target.closest('button[data-sel]'):null;
+    if(sb&&root.contains(sb)){var n=+sb.getAttribute('data-sel');TAB[n]='leit';MGR[n]=true;EDITQ=null;MMSG={};goDim(n);return;}
+    var b=e.target.closest?e.target.closest('.lvs button'):null;
+    if(b&&root.contains(b)){
+      var d=b.getAttribute('data-d'),k=b.getAttribute('data-k'),v=+b.getAttribute('data-v');
+      if(A[k][d]===v)delete A[k][d];else A[k][d]=v;
+      FOCUS=+d;store.set('itonic-dim-assess-v1',A);upd();
+    }
+  });
+  root.addEventListener('input',function(e){
+    var t=e.target;
+    if(t&&t.getAttribute&&t.getAttribute('data-note')){A.note[t.getAttribute('data-note')]=t.value;store.set('itonic-dim-assess-v1',A);$('#res',root).value=resultText();}
+  });
+  $('#reset',root).onclick=function(){A.ist={};A.soll={};A.note={};A.sel={};A.name='';$('#aname',root).value='';store.set('itonic-dim-assess-v1',A);$$('textarea[data-note]',root).forEach(function(t){t.value='';});upd();};
+  $('#copy',root).onclick=function(){
+    var ta=$('#res',root),msg=$('#copied',root);
+    function fb(){try{ta.focus();ta.select();var ok=document.execCommand('copy');msg.textContent=ok?'Kopiert.':'Text markiert: bitte mit Strg+C kopieren.';}catch(e){msg.textContent='Text markiert: bitte mit Strg+C kopieren.';}}
+    try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(ta.value).then(function(){msg.textContent='Kopiert.';},fb);}else{fb();}}catch(e){fb();}
+  };
+  /* Speichern und Laden */
+  var prev=null;
+  function msg(t,err){var m=$('#smsg',root);m.className='savemsg'+(err?' err':'');m.textContent=t;return m;}
+  function exportObj(){
+    var lf={};DIMS.forEach(function(d){lf[d.id]=activeQ(d).map(function(q){return {id:q.id,text:q.text,basis:q.basis};});});
+    return {format:'itonic-standortbestimmung',version:2,name:A.name||'',saved:new Date().toISOString(),skala:LEVELS,ist:A.ist,soll:A.soll,note:A.note,leitfragen:lf};
+  }
+  function slug(t){return String(t||'').toLowerCase().replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,40);}
+  function parseData(txt){
+    var o;try{o=JSON.parse(txt);}catch(e){return {err:'Die Datei konnte nicht gelesen werden, sie ist beschädigt oder hat ein falsches Format.'};}
+    if(!o||o.format!=='itonic-standortbestimmung')return {err:'Die Datei stammt nicht aus dieser Unterlage.'};
+    function clean(m){var r={};if(m&&typeof m==='object'){for(var d=1;d<=8;d++){var v=m[d];if(typeof v==='number'&&v>=0&&v<=4&&v%1===0)r[d]=v;}}return r;}
+    var note={};if(o.note&&typeof o.note==='object'){for(var d=1;d<=8;d++){if(typeof o.note[d]==='string')note[d]=o.note[d].slice(0,2000);}}
+    /* Leitfragen (ab Version 2): Auswahl je Dimension; fehlende eigene Fragen werden in die Bibliothek übernommen */
+    var sel=null,added=0;
+    if(o.leitfragen&&typeof o.leitfragen==='object'){
+      sel={};
+      DIMS.forEach(function(dm){
+        var arr=Array.isArray(o.leitfragen[dm.id])?o.leitfragen[dm.id]:null;
+        if(!arr)return;
+        var ids=[];
+        arr.forEach(function(q){
+          if(!q||typeof q.id!=='string')return;
+          if(q.basis===true||/^b\d+$/.test(q.id)){if(baseQ(dm).some(function(b){return b.id===q.id;}))ids.push(q.id);return;}
+          var t=normQ(q.text);if(!t)return;
+          var hit=(LIB[dm.id]||[]).filter(function(x){return x.id===q.id||x.text.toLowerCase()===t.toLowerCase();})[0];
+          if(!hit){
+            if((LIB[dm.id]||[]).length>=QPERDIM)return;
+            hit={id:/^c[A-Za-z0-9_-]{1,40}$/.test(q.id)?q.id:newId(),text:t};
+            LIB[dm.id]=(LIB[dm.id]||[]).concat([hit]);added++;
+          }
+          if(ids.indexOf(hit.id)<0)ids.push(hit.id);
+        });
+        sel[dm.id]=ids;
+      });
+      if(added)libSave();
+    }
+    return {ok:{name:String(o.name||'').slice(0,120),ist:clean(o.ist),soll:clean(o.soll),note:note,sel:sel||{},added:added}};
+  }
+  function hasData(){return Object.keys(A.ist).length||Object.keys(A.soll).length||Object.keys(A.note).some(function(k){return A.note[k];})||A.name;}
+  function apply(o){
+    A.name=o.name;A.ist=o.ist;A.soll=o.soll;A.note=o.note;A.sel=o.sel||{};
+    store.set('itonic-dim-assess-v1',A);
+    $('#aname',root).value=A.name||'';
+    $$('textarea[data-note]',root).forEach(function(t){t.value=A.note[t.getAttribute('data-note')]||'';});
+    upd();
+  }
+  function load(txt,label){
+    var r=parseData(txt);
+    if(r.err){msg(r.err,true);return;}
+    prev=hasData()?{name:A.name||'',ist:A.ist,soll:A.soll,note:A.note,sel:A.sel}:null;
+    apply(r.ok);
+    var m=msg('Geladen'+(label?': '+label:'')+(r.ok.name?' ('+r.ok.name+')':'')+'.'+(r.ok.added?' '+r.ok.added+' eigene Leitfrage(n) in die Bibliothek übernommen (Export empfohlen).':''));
+    if(prev){var b=document.createElement('button');b.type='button';b.className='btn sec sm';b.textContent='Rückgängig';b.onclick=function(){apply(prev);prev=null;msg('Vorheriger Stand wiederhergestellt.');};m.appendChild(b);}
+  }
+  $('#aname',root).addEventListener('input',function(){A.name=this.value;store.set('itonic-dim-assess-v1',A);$('#res',root).value=resultText();});
+  $('#fsave',root).onclick=function(){
+    var d=new Date(),ds=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);
+    var sl=slug(A.name),fn='itonic-standortbestimmung_'+(sl?sl+'_':'')+ds+'.json';
+    try{
+      var blob=new Blob([JSON.stringify(exportObj(),null,2)],{type:'application/json'}),u=URL.createObjectURL(blob),a=document.createElement('a');
+      a.href=u;a.download=fn;document.body.appendChild(a);a.click();document.body.removeChild(a);
+      setTimeout(function(){URL.revokeObjectURL(u);},2000);
+      msg('Datei erstellt: '+fn+'. Startet kein Download, nutze „Alternativ als Text“.');
+    }catch(e){msg('Download nicht möglich. Bitte „Alternativ als Text“ nutzen.',true);}
+  };
+  $('#fpdf',root).onclick=function(){
+    var d=new Date(),ds=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2),
+        dd=('0'+d.getDate()).slice(-2)+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+d.getFullYear();
+    var sl=slug(A.name),oldT=document.title,
+        ai=avg(A.ist),as=avg(A.soll),n=Object.keys(A.ist).filter(function(k){return A.ist[k]!=null;}).length;
+    function v(x){return x==null?'–':x;}
+    var rows=DIMS.map(function(x){
+      var i=A.ist[x.id],s=A.soll[x.id];
+      return '<tr><td>'+x.id+' '+esc(x.name)+'</td><td class="c">'+v(i)+'</td><td class="c">'+v(s)+'</td><td class="c">'+(i!=null&&s!=null?s-i:'–')+'</td><td>'+esc(A.note[x.id]||'')+'</td></tr>';
+    }).join('');
+    var gaps=DIMS.filter(function(x){return A.ist[x.id]!=null&&A.soll[x.id]!=null&&A.soll[x.id]>A.ist[x.id];}).map(function(x){return {d:x,g:A.soll[x.id]-A.ist[x.id]};}).sort(function(a,b){return b.g-a.g;}).slice(0,3);
+    var rep=document.getElementById('printrep');
+    if(!rep){rep=document.createElement('div');rep.id='printrep';document.body.appendChild(rep);}
+    rep.innerHTML='<div class="pr-head">'+'<img alt="itonic advisors" src="'+LOGO_RGB+'">'+'<span class="pr-date">Stand: '+dd+'</span></div>'+
+      '<h1>KI-Reifegrad: Standortbestimmung</h1>'+(A.name?'<p class="pr-name">'+esc(A.name)+'</p>':'')+
+      '<div class="pr-kpis"><div class="pr-kpi"><small>Ø Ist</small><b>'+(ai==null?'–':de(ai))+'</b></div><div class="pr-kpi"><small>Ø Soll</small><b>'+(as==null?'–':de(as))+'</b></div><div class="pr-kpi"><small>Ist bewertet</small><b>'+n+' / 8</b></div></div>'+
+      '<div class="pr-radar">'+radarSvg()+'<div class="pr-leg"><b>—</b> Ist &nbsp;&nbsp; <b>- - -</b> Soll</div></div>'+
+      '<h2>Ergebnis je Dimension</h2><table><thead><tr><th>Dimension</th><th class="c">Ist</th><th class="c">Soll</th><th class="c">Lücke</th><th>Notiz</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+      '<p class="pr-note">Skala: 0 nicht vorhanden · 1 initial · 2 definiert · 3 etabliert · 4 skaliert/optimiert</p>'+
+      '<h2>Größte Lücken (Soll minus Ist)</h2>'+(gaps.length?gaps.map(function(x){return '<div class="pr-gap"><span>'+x.d.id+' · '+esc(x.d.name)+'</span><span class="pr-bar"><i style="width:'+(x.g*25)+'%"></i></span><b>+'+x.g+'</b></div>';}).join(''):'<p class="pr-note">Keine Lücke erfasst.</p>')+
+      '<div class="pr-foot">itonic Advisors · KI-Betrachtungsdimensionen</div>'+
+      (($('#fpdfq',root)&&$('#fpdfq',root).checked)?'<div class="pr-annex"><h2>Anhang: Leitfragen je Dimension</h2><p class="pr-note" style="margin:0 0 4pt">Verwendete Leitfragen dieser Standortbestimmung.'+(A.name?' '+esc(A.name):'')+'</p>'+
+        DIMS.map(function(x){
+          var aq=activeQ(x);
+          return '<h3>'+x.id+' '+esc(x.name)+'</h3><ul>'+(aq.length?aq.map(function(q){return '<li>'+esc(q.text)+'</li>';}).join(''):'<li>Keine Leitfrage aktiv.</li>')+'</ul>';
+        }).join('')+'</div>':'');
+    document.title='itonic-standortbestimmung_'+(sl?sl+'_':'')+ds;
+    function done(){document.title=oldT;rep.innerHTML='';document.body.classList.remove('pr');window.removeEventListener('afterprint',done);}
+    document.body.classList.add('pr');
+    window.addEventListener('afterprint',done);
+    function doPrint(){
+      try{window.print();msg('Druckdialog geöffnet: Ziel „Als PDF speichern“ wählen.');}
+      catch(e){done();msg('Drucken nicht möglich. Bitte Browser-Druckfunktion (Strg+P) nutzen.',true);}
+    }
+    var im=rep.querySelector('.pr-head img');
+    if(im&&im.decode){im.decode().then(doPrint,doPrint);}else{doPrint();}
+  };
+  $('#fopenb',root).onclick=function(){$('#fopen',root).click();};
+  $('#fopen',root).addEventListener('change',function(){
+    var f=this.files&&this.files[0],inp=this;
+    if(!f)return;
+    var fr=new FileReader();
+    fr.onload=function(){load(String(fr.result),f.name);inp.value='';};
+    fr.onerror=function(){msg('Datei konnte nicht gelesen werden.',true);};
+    fr.readAsText(f);
+  });
+  $('#tgen',root).onclick=function(){$('#jtxt',root).value=JSON.stringify(exportObj(),null,2);msg('Text erzeugt. Bitte kopieren und separat ablegen.');};
+  $('#tcopy',root).onclick=function(){
+    var ta=$('#jtxt',root);if(!ta.value)ta.value=JSON.stringify(exportObj(),null,2);
+    function fb(){try{ta.focus();ta.select();var ok=document.execCommand('copy');msg(ok?'Kopiert.':'Text markiert: bitte mit Strg+C kopieren.');}catch(e){msg('Text markiert: bitte mit Strg+C kopieren.');}}
+    try{if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(ta.value).then(function(){msg('Kopiert.');},fb);}else{fb();}}catch(e){fb();}
+  };
+  $('#tload',root).onclick=function(){var t=$('#jtxt',root).value.trim();if(!t){msg('Bitte zuerst den gespeicherten Text einfügen.',true);return;}load(t,'Text');};
+  upd();
+}
+
+/* ---------- Navigation ---------- */
+var SLIDES=[
+ {id:'title',title:'Start',section:'Einführung',render:renderTitle},
+ {id:'zweck',title:'Zweck und Aufbau',section:'Einführung',render:renderZweck},
+ {id:'modell',title:'Das Modell',section:'Einführung',render:renderModell}
+];
+DIMS.forEach(function(d){SLIDES.push({id:'dim'+d.id,title:d.id+'. '+d.name,section:'Dimensionen',dim:d.id,render:function(el){renderDim(el,d);}});});
+SLIDES.push({id:'abgr',title:'Abgrenzungen',section:'Dimensionen',render:renderAbgr});
+SLIDES.push({id:'skala',title:'Reifegradskala',section:'Reifegrad',render:renderSkala});
+SLIDES.push({id:'matrix',title:'Reifegrad je Dimension',section:'Reifegrad',render:renderMatrix});
+SLIDES.push({id:'assess',title:'Standortbestimmung erstellen',section:'Standortbestimmung',render:renderAssess});
+
+var seen={};
+function go(i){
+  i=Math.max(0,Math.min(SLIDES.length-1,i));
+  cur=i;seen[i]=true;
+  var s=SLIDES[i];
+  $('#app').setAttribute('data-slide',s.id==='title'?'title':'content');
+  stage.innerHTML='';
+  s.render(stage);
+  stage.scrollTop=0;
+  $('#crumb').innerHTML='<b>'+esc(s.section)+'</b> · '+esc(s.title);
+  $('#count').textContent=(i+1)+' / '+SLIDES.length;
+  $('#btnPrev').disabled=(i===0);
+  $('#btnNext').disabled=(i===SLIDES.length-1);
+  $$('#prog button').forEach(function(b,k){b.className=(k===i?'cur':(seen[k]?'seen':''));});
+  try{history.replaceState(null,'','#'+(i+1));}catch(e){}
+}
+$('#prog').innerHTML=SLIDES.map(function(s,i){return '<button type="button" title="'+esc(s.title)+'" aria-label="'+esc(s.title)+'" data-i="'+i+'"></button>';}).join('');
+$('#prog').addEventListener('click',function(e){var b=e.target.closest('button');if(b)go(+b.getAttribute('data-i'));});
+$('#btnPrev').onclick=function(){go(cur-1);};
+$('#btnNext').onclick=function(){go(cur+1);};
+
+/* Übersicht */
+function buildTiles(){
+  var sections=[],map={};
+  SLIDES.forEach(function(s,i){if(!map[s.section]){map[s.section]=[];sections.push(s.section);}map[s.section].push(i);});
+  $('#tiles').innerHTML=sections.map(function(sec){
+    return '<h3 style="margin-top:14px">'+esc(sec)+'</h3><div class="tiles">'+map[sec].map(function(i){return '<button type="button" class="tile'+(i===cur?' cur':'')+'" data-i="'+i+'">'+esc(SLIDES[i].title)+'</button>';}).join('')+'</div>';
+  }).join('');
+}
+function openOv(){buildTiles();$('#drawer').classList.add('open');var t=$('#tiles .tile.cur');if(t)t.focus();}
+function closeOv(){$('#drawer').classList.remove('open');}
+$('#btnOv').onclick=openOv;
+$('#btnClose').onclick=closeOv;
+$('#drawer').addEventListener('click',function(e){
+  if(e.target.id==='drawer'){closeOv();return;}
+  var t=e.target.closest('.tile');if(t){closeOv();go(+t.getAttribute('data-i'));}
+});
+
+/* Delegation: Dimensions-Links, Strip, Tags */
+document.addEventListener('click',function(e){
+  var el=e.target.closest?e.target.closest('.dimlink,.strip button,.tag'):null;
+  if(el&&stage.contains(el)){goDim(el.getAttribute('data-d'));}
+});
+
+/* Tastatur */
+document.addEventListener('keydown',function(e){
+  var tg=(e.target&&e.target.tagName)||'';
+  if(/INPUT|TEXTAREA|SELECT/.test(tg))return;
+  if(e.ctrlKey||e.metaKey||e.altKey)return;
+  var k=e.key;
+  if($('#drawer').classList.contains('open')){if(k==='Escape'||k==='o'||k==='O'){closeOv();}return;}
+  var onBtn=(tg==='BUTTON'||(e.target.getAttribute&&e.target.getAttribute('role')==='button'));
+  if(k==='ArrowRight'||k==='PageDown'){e.preventDefault();go(cur+1);}
+  else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();go(cur-1);}
+  else if(k===' '&&!onBtn){e.preventDefault();go(cur+1);}
+  else if(k==='Home'){e.preventDefault();go(0);}
+  else if(k==='End'){e.preventDefault();go(SLIDES.length-1);}
+  else if(k==='o'||k==='O'){openOv();}
+});
+
+/* Drucken: aktuelle Folie; Dimensionsfolien mit allen drei Reitern (auch bei Strg+P) */
+function printExpand(){
+  if(document.body.classList.contains('pr'))return;
+  var s=SLIDES[cur],d=s.dim?dimById(s.dim):null,tp=$('#tp',stage);
+  if(!d||!tp||$('#ptabs',stage))return;
+  var box=document.createElement('div');box.id='ptabs';
+  box.innerHTML=[['ueberblick','Überblick'],['leit','Leitfragen'],['stand','Reifegrad']].map(function(t){return '<h2 class="pt">'+t[1]+'</h2>'+dimPanel(d,t[0]);}).join('');
+  tp.parentNode.insertBefore(box,tp);
+  document.body.classList.add('ps-dim');
+}
+function printCleanup(){
+  var b=$('#ptabs',stage);if(b)b.parentNode.removeChild(b);
+  document.body.classList.remove('ps-dim');
+}
+window.addEventListener('beforeprint',printExpand);
+window.addEventListener('afterprint',printCleanup);
+$('#btnPrint').onclick=function(){window.print();};
+
+var start=0;
+try{var h=parseInt((location.hash||'').replace('#',''),10);if(h>=1&&h<=SLIDES.length)start=h-1;}catch(e){}
+go(start);
+})();
+</script>
+</body>
+</html>
